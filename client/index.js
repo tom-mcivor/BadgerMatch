@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 import store from './store'
 
 import App from './components/App'
+import { Auth0Provider } from '@auth0/auth0-react'
 
 
 
@@ -13,11 +14,18 @@ import App from './components/App'
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Provider store={store}>
+    <Auth0Provider store={store}
+      domain = "https://aihe-ahoaho-22-tom.au.auth0.com"
+      clientId = 'ozaykyAlM17peJrCOtU8wiJNIy4LItBn' 
+      redirectUri = {window.location.origin}
+      audience = 'https://fruit/api'
+      
+      >
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </Provider>,
+   
+    </Auth0Provider>,
     document.getElementById('app')
   )
 })
