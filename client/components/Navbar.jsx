@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import styles from './Navbar.module.scss'
 import { IfAuthenticated, IfNotAuthenticated } from './isAuthenticated'
 
-// import {Navlink, NavGroup} from './Styled'
-
 import { useAuth0 } from '@auth0/auth0-react'
 
 
