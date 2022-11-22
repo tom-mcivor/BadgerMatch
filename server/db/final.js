@@ -10,7 +10,7 @@ const connection = require('./connection')
 // get final animal (from results table)
 
 // join both table (from results table)
-function getFinalResult(db = connection) {
+function getFinalResults(db = connection) {
   return db('results')
     .join('animals', 'results.animal_id', 'animals.id')
     .select()
@@ -32,7 +32,12 @@ function getFinalResultById(id, db = connection) {
     .first()
 }
 
+function addDispositionResult(id, disposition, db = connection) {
+  return db('results').where('animal_id', id).update({ disposition })
+}
+
 module.exports = {
   getFinalResultById,
-  getFinalResult,
+  getFinalResults,
+  addDispositionResult,
 }
