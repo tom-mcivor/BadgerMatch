@@ -22,6 +22,8 @@ function getFinalResultById(id, db = connection) {
     .where('results.animal_id', id)
     .select(
       'results.animal_id',
+      'results.auth0_id',
+      'results.created',
       'results.disposition as disposition',
       'animals.name as name',
       'animals.description as description',
