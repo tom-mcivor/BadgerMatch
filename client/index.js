@@ -8,23 +8,20 @@ import App from './components/App'
 import { Auth0Provider } from '@auth0/auth0-react'
 
 
-
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Auth0Provider store={store}
-      domain = "https://aihe-ahoaho-22-tom.au.auth0.com"
-      clientId = 'ozaykyAlM17peJrCOtU8wiJNIy4LItBn' 
+    <Auth0Provider 
+     domain = "cam-ahoaha-22.au.auth0.com"
+      clientId = 'nEGzES790IAsLzglBLQsRUVpLBZuikfG' 
       redirectUri = {window.location.origin}
-      audience = 'https://fruit/api'
-      
+      audience = 'https://badger-match/api'
       >
+    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
    
+    </Provider>,
     </Auth0Provider>,
     document.getElementById('app')
   )
