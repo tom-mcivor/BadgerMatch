@@ -8,7 +8,10 @@ router.get('/', (req, res) => {
     .then((result) => {
       res.json(result)
     })
-    .catch(console.error)
+    .catch((err) => {
+      console.error(err.message)
+      res.sendStatus(500)
+    })
 })
 
 module.exports = router
