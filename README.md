@@ -77,3 +77,9 @@ function clickHandler(id){
 </details>
 
 ![badge-r](server/public/images/badgers/badge-r.png "Our mascot")
+
+
+
+### auth
+
+client id: ozaykyAlM17peJrCOtU8wiJNIy4LItBn

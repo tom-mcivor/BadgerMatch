@@ -6,6 +6,11 @@ import store from './store'
 
 import App from './components/App'
 
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <Provider store={store}>
