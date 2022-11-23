@@ -17,7 +17,7 @@ afterAll(() => {
 
 describe('getAnimalById and addResult', () => {
   it('gets animal by id', () => {
-    expect.assertions(1)
+    expect.assertions(3)
     return getAnimalById(1, testDb).then((finalResult) => {
       expect(finalResult.name).toBe('Bag Cat')
       expect(finalResult.description).toBe('Likes bags')
