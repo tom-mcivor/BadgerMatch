@@ -20,6 +20,8 @@ describe('getAnimalById and addResult', () => {
     expect.assertions(1)
     return getAnimalById(1, testDb).then((finalResult) => {
       expect(finalResult.name).toBe('Bag Cat')
+      expect(finalResult.description).toBe('Likes bags')
+      expect(finalResult.imageUrl).toBe('/images/bag-cat.jpg')
     })
   })
   it('add new result to result table', () => {

@@ -36,7 +36,7 @@ describe('GET /api/vi/final/:id', () => {
       .get('/api/v1/final/1')
       .then((res) => {
         expect(res.status).toBe(200)
-        expect(getAnimalByIdData).toEqual(res.body)
+        expect(res.body).toEqual(getAnimalByIdData)
       })
   })
   it('should return status 500 and an error message when database fails.', () => {
