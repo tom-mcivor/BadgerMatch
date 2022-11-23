@@ -33,8 +33,7 @@ describe('GET /api/v1/results/', () => {
       .get('/api/v1/results/')
       .then((res) => {
         expect(res.status).toBe(200)
-        expect(res.body).toEqual(getResultsMockData) 
-        console.log(res.body);
+        expect(res.body).toEqual(getResultsMockData)
       })
   })
   it('should return status 500 and an error message when database fails.', () => {
