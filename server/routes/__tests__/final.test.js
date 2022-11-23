@@ -58,3 +58,12 @@ describe('GET /api/vi/final/:id', () => {
       })
   })
 })
+
+describe('UPDATE /api/v1/final/id', () => {
+  it('should return status 200 and an updated table when sucessful', () => {
+    expect.assertions(2)
+    addDispositionResult.mockReturnValue(
+      Promise.resolve(getFinalResultIdMockData)
+    )
+  })
+})

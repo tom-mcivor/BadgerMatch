@@ -6,7 +6,7 @@ const db = require('../db/final.js')
 
 router.get('/:id', (req, res) => {
   const id = req.params.id
-  db.getFinalResultById(id)
+  db.getAnimalById(id)
     .then((finalResult) => {
       res.json(finalResult)
     })
@@ -16,12 +16,11 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router.patch('/:id', (req, res) => {
-  const id = req.params.id
-  const disposition = req.body.disposition
-  db.addDispositionResult(id, disposition)
+router.post('/:id', (req, res) => {
+  const newResult = req.body
+  db.addResult(newResult)
     .then(() => {
-      return db.getFinalResultById(id).then((result) => res.json(result))
+      res.status(200)
     })
     .catch((err) => {
       console.log(err)
