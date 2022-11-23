@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { getAnimals } from '../apis/play'
+import { useNavigate } from 'react-router-dom'
 
 export default function Play() {
   const [animalsToRate, setAnimals] = useState([])
-
+  const navigate = useNavigate()
   let auth0_id = '1' // Testing that auth0_id works, setting auth0_id to 1
-  console.log(animalsToRate) // Remove this once it has been used in the component.
+  // Remove this once it has been used in the component.
 
   // Remove above once authentication is setup.
   useEffect(() => {
@@ -13,11 +14,13 @@ export default function Play() {
       .then((animalsToRate) => {
         setAnimals(animalsToRate)
         if (animalsToRate.length < 2) {
-          console.log('re-direct') // Put front end re-direct function here
           let animalsToDisplay = animalsToRate
+          navigate('/play')
+          console.log(animalsToDisplay, 'redirect') // REMOVE LATER
+        } else {
+          let animalsToDisplay = randomToRate(animalsToRate)
+          console.log(animalsToDisplay, 'To display') // Use these values on front end
         }
-        let animalsToDisplay = randomToRate(animalsToRate)
-        console.log(animalsToDisplay, 'To display') // Use these values on front end
       })
       .catch((err) => {
         console.error(err.message)
@@ -37,7 +40,6 @@ export default function Play() {
 
   return (
     <>
-      {this.state.redirect ? <Redirect push to='/' /> : null}
       <h1>PLAY PAGE :D</h1>
     </>
   )
