@@ -45,4 +45,16 @@ describe('GET /api/vi/final/:id', () => {
         expect(getFinalResultIdMockData).toEqual(res.body)
       })
   })
+  it('should return status 500 and an error message when database fails.', () => {
+    expect.assertions(2)
+    getFinalResultById.mockImplementation(() =>
+      Promise.reject(new Error('Something went wrong'))
+    )
+    return request(server)
+      .get('/api/v1/final/1')
+      .then((res) => {
+        expect(res.status).toBe(500)
+        expect(res.text).toContain('Something went wrong')
+      })
+  })
 })
