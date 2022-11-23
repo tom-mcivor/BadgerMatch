@@ -34,3 +34,15 @@ router.get('/s3Url', async (req, res) => {
     res.status(500).send(err.message)
   }
 })
+
+router.post('/', async (req, res) => {
+  try {
+    const { name, description, imageUrl, auth0Id } = req.body
+    await create(auth0Id, name, description, imageUrl)
+    res.sendStatus(200)
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+})
+
+module.exports = router
