@@ -10,6 +10,8 @@ const Create = () => {
     auth0Id: 1,
   })
   const [file, setFile] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
 
   const handleChange = (event) => {
     setAnimal({ ...animal, [event.target.name]: event.target.value })
@@ -20,6 +22,7 @@ const Create = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    setLoading(true)
     const { uploadUrl } = await getS3Url()
     console.log(uploadUrl, 'uploadUrl')
 
@@ -29,6 +32,8 @@ const Create = () => {
     const newAnimal = { ...animal, imageUrl }
 
     await create(newAnimal)
+    setLoading(false)
+    setSuccess(true)
   }
 
   return (
@@ -68,6 +73,8 @@ const Create = () => {
           Submit
         </button>
       </form>
+      {loading && <p>Loading...</p>}
+      {success && <p>Success!</p>}
     </div>
   )
 }
