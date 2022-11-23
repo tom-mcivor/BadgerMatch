@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { getAnimals } from '../apis/play'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 export default function Play() {
   const [animalsToRate, setAnimals] = useState([])
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   let auth0_id = '1' // Testing that auth0_id works, setting auth0_id to 1
   // Remove this once it has been used in the component.
@@ -14,6 +16,7 @@ export default function Play() {
       .then((animalsToRate) => {
         setAnimals(animalsToRate)
         if (animalsToRate.length < 2) {
+          dispatch({ type: 'ADD_ANIMAL', payload: animalsToRate })
           navigate('/final')
         } else {
           let animalsToDisplay = randomToRate(animalsToRate)

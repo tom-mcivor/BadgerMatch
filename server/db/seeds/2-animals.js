@@ -35,14 +35,16 @@ exports.seed = async (knex) => {
       auth0_id: '3',
       name: 'grommit',
       description: 'I like cheese',
-      image_url: 'https://www.definitely-an-animal.jpeg',
+      image_url:
+        'https://static.wikia.nocookie.net/universalstudios/images/1/1a/The-Curse-of-the-Were-Rabbit-wallace-and-gromit-118082_1508_1820.jpg/revision/latest?cb=20201117170912',
     },
     {
       id: 6,
       auth0_id: '3',
       name: 'wallace',
       description: 'I like cheese',
-      image_url: 'https://www.definitely-an-animal-but-human.jpeg',
+      image_url:
+        'https://static.wikia.nocookie.net/universalstudios/images/a/a9/Wallace_thumb_up.png/revision/latest?cb=20180227050041',
     },
   ])
 }
