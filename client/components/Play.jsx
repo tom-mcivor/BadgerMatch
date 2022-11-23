@@ -14,12 +14,9 @@ export default function Play() {
       .then((animalsToRate) => {
         setAnimals(animalsToRate)
         if (animalsToRate.length < 2) {
-          let animalsToDisplay = animalsToRate
-          navigate('/play')
-          console.log(animalsToDisplay, 'redirect') // REMOVE LATER
+          navigate('/final')
         } else {
           let animalsToDisplay = randomToRate(animalsToRate)
-          console.log(animalsToDisplay, 'To display') // Use these values on front end
         }
       })
       .catch((err) => {

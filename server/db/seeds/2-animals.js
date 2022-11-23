@@ -30,5 +30,19 @@ exports.seed = async (knex) => {
       image_url:
         'https://www.top5.com/wp-content/uploads/2018/08/cute-baby-photos-fox-in-the-snow.png',
     },
+    {
+      id: 5,
+      auth0_id: '3',
+      name: 'grommit',
+      description: 'I like cheese',
+      image_url: 'https://www.definitely-an-animal.jpeg',
+    },
+    {
+      id: 6,
+      auth0_id: '3',
+      name: 'wallace',
+      description: 'I like cheese',
+      image_url: 'https://www.definitely-an-animal-but-human.jpeg',
+    },
   ])
 }
