@@ -5,9 +5,7 @@ import { IfAuthenticated, IfNotAuthenticated } from './isAuthenticated'
 
 import { useAuth0 } from '@auth0/auth0-react'
 
-
 export default function Navbar() {
-
   const { logout, loginWithRedirect, user } = useAuth0()
 
   const handleLogOff = (e) => {
@@ -19,8 +17,8 @@ export default function Navbar() {
     e.preventDefault()
     loginWithRedirect()
   }
-  
-  return (  
+
+  return (
     <nav className={styles.navbar}>
       <Link to='/'>
         <div className={styles.title}>Badger Match</div>
@@ -29,16 +27,22 @@ export default function Navbar() {
         <Link to='/play'>Play</Link>
         <Link to='/create'>Create</Link>
         <Link to='/results'>Results</Link>
-        
+
         <IfAuthenticated>
-        <div className={styles.auth}>
-          <div>Hello {user?.nickname}</div>
-          <Link to="/" onClick={handleLogOff}>Log out</Link>
-        </div>
+          <div className={styles.auth}>
+            <div>Hello {user?.nickname}</div>
+            <div>
+              <Link to='/' onClick={handleLogOff}>
+                Sign out
+              </Link>
+            </div>
+          </div>
         </IfAuthenticated>
 
         <IfNotAuthenticated>
-          <Link className={styles.auth} to="/" onClick={handleSignIn}>Register | Login </Link>
+          <Link className={styles.auth} to='/' onClick={handleSignIn}>
+            Register | Login
+          </Link>
         </IfNotAuthenticated>
       </div>
     </nav>

@@ -8,9 +8,9 @@ import '@testing-library/jest-dom'
 
 const fakeUser = {
   name: '',
-  email: ''
+  email: '',
 }
-//David's one
+// DAVID's ONE
 jest.mock('@auth0/auth0-react')
 const fakeLogin = jest.fn()
 
@@ -19,41 +19,38 @@ beforeEach(() => {
     isAuthenticated: false,
     user: {
       ...fakeUser,
-      nickname: 'nickky'
+      nickname: 'nickky',
     },
     loginWithRedirect: fakeLogin,
     getAccessTokenSilently: () => {
       return Promise.resolve('token')
     },
   })
+  fakeLogin.mockClear()
 })
 
-describe('<Navbar />', () => { 
+describe('<Navbar />', () => {
   it('displays Register | Login when the user is signed out', () => {
     render(
-        <BrowserRouter>
-          <Routes>
-            <Route path="*" element={<Navbar />}/>
-          </Routes>
-        </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path='*' element={<Navbar />} />
+        </Routes>
+      </BrowserRouter>
     )
     const navbar = screen.getByText(/Login/i)
     expect(navbar).toHaveTextContent('Register | Login')
   })
   it('Allows a user to log in', () => {
     render(
-        <BrowserRouter>
-          <Routes>
-            <Route path='*' element={<Navbar />} />
-          </Routes>
-        </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path='*' element={<Navbar />} />
+        </Routes>
+      </BrowserRouter>
     )
     const link = screen.getByText('Register | Login')
     fireEvent.click(link)
     expect(fakeLogin).toHaveBeenCalled()
   })
 })
-
-
-
-
