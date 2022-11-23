@@ -10,7 +10,7 @@ router.get('/:id', (req, res) => {
       res.json(finalResult)
     })
     .catch((err) => {
-      console.log(err)
+      console.error(err)
       res.status(500).json({ message: 'Something went wrong' })
     })
 })
@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
       return null
     })
     .catch((err) => {
-      console.log(err)
+      console.error(err)
       res.status(500).json({ message: 'Something went wrong' })
     })
 })

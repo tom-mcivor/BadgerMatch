@@ -40,14 +40,13 @@ describe('GET /api/vi/final/:id', () => {
       })
   })
   it('should return status 500 and an error message when database fails.', () => {
-    expect.assertions(2)
-    getAnimalById.mockImplementation(() =>
-      Promise.reject(new Error('Something went wrong'))
-    )
+    expect.assertions(3)
+    getAnimalById.mockImplementation(() => Promise.reject('Get Failed'))
     return request(server)
       .get('/api/v1/final/1')
       .then((res) => {
         expect(res.status).toBe(500)
+        expect(console.error).toHaveBeenCalledWith('Get Failed')
         expect(res.text).toContain('Something went wrong')
       })
   })
@@ -65,14 +64,13 @@ describe('POST /api/v1/final/', () => {
       })
   })
   it('should return status 500 and an error message when database fails.', () => {
-    expect.assertions(2)
-    addResult.mockImplementation(() =>
-      Promise.reject(new Error('Something went wrong'))
-    )
+    expect.assertions(3)
+    addResult.mockImplementation(() => Promise.reject('Get Failed'))
     return request(server)
       .post('/api/v1/final')
       .then((res) => {
         expect(res.status).toBe(500)
+        expect(console.error).toHaveBeenCalledWith('Get Failed')
         expect(res.text).toContain('Something went wrong')
       })
   })
