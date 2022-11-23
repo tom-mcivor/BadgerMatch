@@ -8,7 +8,6 @@ beforeAll(() => {
   return testDb.migrate.latest()
 })
 beforeEach(() => {
-  
   return testDb.seed.run()
 })
 

@@ -21,7 +21,6 @@ const getAnimalByIdData = {
 }
 
 const addNewResultData = {
-  id: 1,
   auth0_id: 1,
   animal_id: 1,
   created: new Date(Date.now()),
@@ -30,12 +29,13 @@ const addNewResultData = {
 
 describe('GET /api/vi/final/:id', () => {
   it('should return status 200 and a joint table when successful', () => {
-    expect.assertions(2)
+    expect.assertions(3)
     getAnimalById.mockReturnValue(Promise.resolve(getAnimalByIdData))
     return request(server)
       .get('/api/v1/final/1')
       .then((res) => {
         expect(res.status).toBe(200)
+        expect(getAnimalById).toHaveBeenCalledWith('1')
         expect(res.body).toEqual(getAnimalByIdData)
       })
   })
@@ -65,12 +65,12 @@ describe('POST /api/v1/final/', () => {
   })
   it('should return status 500 and an error message when database fails.', () => {
     expect.assertions(3)
-    addResult.mockImplementation(() => Promise.reject('Get Failed'))
+    addResult.mockImplementation(() => Promise.reject('Post Failed'))
     return request(server)
       .post('/api/v1/final')
       .then((res) => {
         expect(res.status).toBe(500)
-        expect(console.error).toHaveBeenCalledWith('Get Failed')
+        expect(console.error).toHaveBeenCalledWith('Post Failed')
         expect(res.text).toContain('Something went wrong')
       })
   })
