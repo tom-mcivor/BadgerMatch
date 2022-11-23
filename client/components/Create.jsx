@@ -1,9 +1,75 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { create, getS3Url, fetchUrl } from '../apis/create'
+import styles from './Create.module.scss'
 
-export default function Create() {
+const Create = () => {
+  const [animal, setAnimal] = useState({
+    name: '',
+    description: '',
+    imageUrl: '',
+    auth0Id: 1,
+  })
+  const [file, setFile] = useState(null)
+
+  const handleChange = (event) => {
+    setAnimal({ ...animal, [event.target.name]: event.target.value })
+  }
+  const handleFileChange = async (event) => {
+    setFile(event.target.files[0])
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const { uploadUrl } = await getS3Url()
+    console.log(uploadUrl, 'uploadUrl')
+
+    await fetchUrl(uploadUrl, file)
+    const imageUrl = uploadUrl.split('?')[0]
+
+    const newAnimal = { ...animal, imageUrl }
+
+    await create(newAnimal)
+  }
+
   return (
-    <>
-      <h1>CREATE PAGE :D</h1>
-    </>
+    <div className={styles.container}>
+      <h1 className={styles.h1}>Add an Animal</h1>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <label htmlFor='name' className={styles.label}>
+          Name:
+        </label>
+        <input
+          type='text'
+          name='name'
+          value={animal.name}
+          onChange={handleChange}
+          className={styles.input}
+        />
+        <label htmlFor='description' className={styles.label}>
+          Description:
+        </label>
+        <input
+          type='text'
+          name='description'
+          value={animal.description}
+          onChange={handleChange}
+          className={styles.input}
+        />
+        <label htmlFor='imageUrl' className={styles.label}>
+          Pick Image:
+        </label>
+        <input
+          type='file'
+          name='imageUrl'
+          onChange={handleFileChange}
+          className={styles.input}
+        />
+        <button type='submit' className={styles.button}>
+          Submit
+        </button>
+      </form>
+    </div>
   )
 }
+
+export default Create
