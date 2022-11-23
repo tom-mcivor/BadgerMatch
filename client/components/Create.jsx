@@ -37,9 +37,13 @@ const Create = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid='create-container'>
       <h1 className={styles.h1}>Add an Animal</h1>
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <form
+        onSubmit={handleSubmit}
+        className={styles.form}
+        data-testid='create-form'
+      >
         <label htmlFor='name' className={styles.label}>
           Name:
         </label>
@@ -49,6 +53,8 @@ const Create = () => {
           value={animal.name}
           onChange={handleChange}
           className={styles.input}
+          aria-label='Name:'
+          data-testid='name-input'
         />
         <label htmlFor='description' className={styles.label}>
           Description:
@@ -59,6 +65,8 @@ const Create = () => {
           value={animal.description}
           onChange={handleChange}
           className={styles.input}
+          aria-label='Description:'
+          data-testid='description-input'
         />
         <label htmlFor='imageUrl' className={styles.label}>
           Pick Image:
@@ -68,13 +76,19 @@ const Create = () => {
           name='imageUrl'
           onChange={handleFileChange}
           className={styles.input}
+          aria-label='Pick Image:'
+          data-testid='image-input'
         />
-        <button type='submit' className={styles.button}>
+        <button
+          type='submit'
+          className={styles.button}
+          data-testid='submit-button'
+        >
           Submit
         </button>
       </form>
-      {loading && <p>Loading...</p>}
-      {success && <p>Success!</p>}
+      {loading && <p data-testid='loading'>Loading...</p>}
+      {success && <p data-testid='success'>Success!</p>}
     </div>
   )
 }
