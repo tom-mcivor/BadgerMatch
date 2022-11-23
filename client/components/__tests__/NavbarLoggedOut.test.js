@@ -10,7 +10,7 @@ const fakeUser = {
   name: '',
   email: '',
 }
-// DAVID's ONE
+
 jest.mock('@auth0/auth0-react')
 const fakeLogin = jest.fn()
 
