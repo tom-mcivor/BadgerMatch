@@ -1,21 +1,6 @@
-// goal: /:id from the play?
-
-// join table will contain: join by animal_id(linked with id of animal table)
-// disposition, auth0_id, name, description, image_url
-// Get animal by Id ()
-// POST animal back to db(add function)
-
 const connection = require('./connection')
 
 // get final animal (from results table)
-
-// join both table (from results table)
-function getFinalResults(db = connection) {
-  return db('results')
-    .join('animals', 'results.animal_id', 'animals.id')
-    .select()
-}
-
 function getFinalResultById(id, db = connection) {
   return db('results')
     .join('animals', 'results.animal_id', 'animals.id')
@@ -31,13 +16,13 @@ function getFinalResultById(id, db = connection) {
     )
     .first()
 }
-
-function addDispositionResult(id, disposition, db = connection) {
+// function getDispositionById
+function addDispositionResult(editedDisposition, db = connection) {
+  const { id, disposition } = editedDisposition
   return db('results').where('animal_id', id).update({ disposition })
 }
 
 module.exports = {
   getFinalResultById,
-  getFinalResults,
   addDispositionResult,
 }
