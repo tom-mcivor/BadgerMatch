@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 
 const db = require('../db/final.js')
-// get  router to have the result
 
 router.get('/:id', (req, res) => {
   const id = req.params.id
@@ -16,11 +15,13 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router.post('/:id', (req, res) => {
+router.post('/', (req, res) => {
   const newResult = req.body
+
   db.addResult(newResult)
     .then(() => {
-      res.status(200)
+      res.sendStatus(200)
+      return null
     })
     .catch((err) => {
       console.log(err)
