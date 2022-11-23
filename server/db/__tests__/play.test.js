@@ -27,7 +27,7 @@ describe('getUnRatedAnimals', () => {
         'https://www.top5.com/wp-content/uploads/2018/08/cute-baby-photos-fox-in-the-snow.png'
       )
       expect(animals[0].description).toBe('Wants a blanket')
-      expect(animals).toHaveLength(1)
+      expect(animals).toHaveLength(3)
     })
   })
 })
