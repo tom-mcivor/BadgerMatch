@@ -32,11 +32,9 @@ describe('getUnRatedAnimals', () => {
     ]
     return getRatedBadgers(auth0_id, testDb).then((animals) => {
       expect(animals).toEqual(animalExpected)
-      expect(animals[0].imageUrl).toBe(
-        'https://www.top5.com/wp-content/uploads/2018/08/cute-baby-photos-fox-in-the-snow.png'
-      )
-      expect(animals[0].description).toBe('Wants a blanket')
-      expect(animals[0].uploaderId).toBe('3')
+      expect(animals[0].imageUrl).toBe(animalExpected[0].imageUrl)
+      expect(animals[0].description).toBe(animalExpected[0].description)
+      expect(animals[0].uploaderId).toBe(animalExpected[0].uploaderId)
       expect(animals).toHaveLength(1)
     })
   })
