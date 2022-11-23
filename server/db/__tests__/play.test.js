@@ -18,15 +18,25 @@ afterAll(() => {
 
 describe('getUnRatedAnimals', () => {
   it('gets the animal that have not been rated.', () => {
-    expect.assertions(4)
+    expect.assertions(5)
     let auth0_id = 1 // Will need to be updated
-    let animalExpected = 'Snow Fox' // Will appear as long as 'Bag Cat' is not rated
+    let animalExpected = [
+      {
+        id: 4,
+        uploaderId: '3',
+        name: 'Snow Fox',
+        description: 'Wants a blanket',
+        imageUrl:
+          'https://www.top5.com/wp-content/uploads/2018/08/cute-baby-photos-fox-in-the-snow.png',
+      },
+    ] // Will appear as long as 'Bag Cat' is not rated
     return getRatedBadgers(auth0_id, testDb).then((animals) => {
-      expect(animals[0].name).toBe(animalExpected)
+      expect(animals).toEqual(animalExpected)
       expect(animals[0].imageUrl).toBe(
         'https://www.top5.com/wp-content/uploads/2018/08/cute-baby-photos-fox-in-the-snow.png'
       )
       expect(animals[0].description).toBe('Wants a blanket')
+      expect(animals[0].uploaderId).toBe('3')
       expect(animals).toHaveLength(1)
     })
   })
