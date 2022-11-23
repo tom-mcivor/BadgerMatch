@@ -12,7 +12,6 @@ function getAnimalById(id, db = connection) {
 }
 
 function addResult(newResult, db = connection) {
-  console.log(newResult)
   return db('results').insert(newResult)
 }
 

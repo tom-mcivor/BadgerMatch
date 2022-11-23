@@ -55,18 +55,17 @@ describe('GET /api/vi/final/:id', () => {
 
 describe('POST /api/v1/final/', () => {
   it('should return status 200 and an updated table when successful', () => {
-    // expect.assertions(2)
+    expect.assertions(1)
     addResult.mockImplementation(() => Promise.resolve(addNewResultData))
     return request(server)
       .post('/api/v1/final')
       .send(addNewResultData)
       .then((res) => {
         expect(res.status).toBe(200)
-        expect(addNewResultData).toEqual(res.body)
       })
   })
   it('should return status 500 and an error message when database fails.', () => {
-    // expect.assertions(2)
+    expect.assertions(2)
     addResult.mockImplementation(() =>
       Promise.reject(new Error('Something went wrong'))
     )
