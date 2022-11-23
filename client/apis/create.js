@@ -6,3 +6,7 @@ export const getS3Url = async () => {
   const res = await request.get(`${API_URL}/api/v1/create/s3Url`)
   return res.body
 }
+
+export const fetchUrl = async (uploadUrl, file) => {
+  await request.put(uploadUrl).send(file)
+}
