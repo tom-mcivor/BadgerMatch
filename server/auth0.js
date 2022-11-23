@@ -1,7 +1,6 @@
 const { expressjwt: jwt } = require('express-jwt')
 const jwks = require('jwks-rsa')
 
-// TODO: set the domain and audience (API Identifier)
 const domain = 'https://badger-match.au.auth0.com'
 const audience = 'https://badger-match/api'
 
