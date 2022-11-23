@@ -6,25 +6,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import '@testing-library/jest-dom'
 
-const fakeUser = {
-  name: '',
-  email: '',
-}
-
 jest.mock('@auth0/auth0-react')
 const fakeLogin = jest.fn()
 
 beforeEach(() => {
   useAuth0.mockReturnValue({
     isAuthenticated: false,
-    user: {
-      ...fakeUser,
-      nickname: 'nickky',
-    },
     loginWithRedirect: fakeLogin,
-    getAccessTokenSilently: () => {
-      return Promise.resolve('token')
-    },
   })
   fakeLogin.mockClear()
 })

@@ -12,7 +12,6 @@ const fakeUser = {
 }
 
 jest.mock('@auth0/auth0-react')
-const fakeLogin = jest.fn()
 const fakeLogout = jest.fn()
 
 beforeEach(() => {
@@ -23,12 +22,8 @@ beforeEach(() => {
       nickname: 'nickky',
     },
     logout: fakeLogout,
-    loginWithRedirect: fakeLogin,
-    getAccessTokenSilently: () => {
-      return Promise.resolve('token')
-    },
   })
-  fakeLogin.mockClear()
+  fakeLogout.mockClear()
 })
 
 describe('<Navbar />', () => {
@@ -41,7 +36,7 @@ describe('<Navbar />', () => {
       </BrowserRouter>
     )
     const navbar = screen.getByText(/Sign out/i)
-    expect(navbar).toHaveTextContent('Sign out')
+    expect(navbar).not.toBeNull()
   })
   it('Allows a user to Sign out', () => {
     render(
