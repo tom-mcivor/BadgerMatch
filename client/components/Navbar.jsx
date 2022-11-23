@@ -20,10 +20,7 @@ export default function Navbar() {
     loginWithRedirect()
   }
   
-  return (
-
-
-  
+  return (  
     <nav className={styles.navbar}>
       <Link to='/'>
         <div className={styles.title}>Badger Match</div>
@@ -43,7 +40,6 @@ export default function Navbar() {
         <IfNotAuthenticated>
           <Link className={styles.auth} to="/" onClick={handleSignIn}>Register | Login </Link>
         </IfNotAuthenticated>
-
       </div>
     </nav>
   )
