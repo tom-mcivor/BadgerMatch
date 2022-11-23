@@ -29,7 +29,7 @@ describe('getUnRatedAnimals', () => {
         imageUrl:
           'https://www.top5.com/wp-content/uploads/2018/08/cute-baby-photos-fox-in-the-snow.png',
       },
-    ] // Will appear as long as 'Bag Cat' is not rated
+    ]
     return getRatedBadgers(auth0_id, testDb).then((animals) => {
       expect(animals).toEqual(animalExpected)
       expect(animals[0].imageUrl).toBe(

@@ -10,7 +10,7 @@ function getResultsForBadger(auth0_id, db = connection) {
 
 function getRatedBadgers(auth0_id, db = connection) {
   return getResultsForBadger(auth0_id, db).then((animals) => {
-    const animal_id = animals.map((animal) => animal.animal_id) // { animal_id : Object.values(animal[0])}
+    const animal_id = animals.map((animal) => animal.animal_id)
     return db('animals')
       .whereNotIn('id', animal_id)
       .select(
