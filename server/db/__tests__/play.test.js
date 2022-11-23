@@ -19,7 +19,7 @@ afterAll(() => {
 describe('getUnRatedAnimals', () => {
   it('gets the animal that have not been rated.', () => {
     expect.assertions(5)
-    let auth0_id = 1 // Will need to be updated
+    let auth0_id = 1 // Will need to be updated once AUTH0 added.
     let animalExpected = [
       {
         id: 4,
