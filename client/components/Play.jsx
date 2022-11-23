@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, getState } from 'react'
 import { getAnimals } from '../apis/play'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Play() {
   const [animalsToRate, setAnimals] = useState([])
@@ -16,7 +16,8 @@ export default function Play() {
       .then((animalsToRate) => {
         setAnimals(animalsToRate)
         if (animalsToRate.length < 2) {
-          dispatch({ type: 'ADD_ANIMAL', payload: animalsToRate })
+          // First need to clear the saved animals
+          addAnimalToRedux(animalsToRate)
           navigate('/final')
         } else {
           let animalsToDisplay = randomToRate(animalsToRate)
@@ -36,6 +37,13 @@ export default function Play() {
       num2 = Math.floor(Math.random() * indexLength)
     } while (num1 === num2)
     return [animalsToRate[num1], animalsToRate[num2]]
+  }
+
+  // Adds the chosen or left-over animal to redux for final to call
+  function addAnimalToRedux(animal) {
+    let previousAnimalsToRate = useSelector((state) => state.play)
+    dispatch({ type: 'DELETE_ANIMAL', payload: previousAnimalsToRate })
+    dispatch({ type: 'ADD_ANIMAL', payload: animal })
   }
 
   return (
