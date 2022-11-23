@@ -1,8 +1,10 @@
 import request from 'superagent'
 
 export function getAnimals(auth0_id) {
+  // No auth0 id passed yet. Will pass into route once auth0 is wired up.
+  console.log(auth0_id) // Remove this once auth0_id has been resolved.
   return request
-    .get(`/api/v1/play/${auth0_id}`)
+    .get(`/api/v1/play/`)
     .then((res) => {
       return res.body
     })

@@ -4,10 +4,10 @@ import { getAnimals } from '../apis/play'
 export default function Play() {
   const [animalsToRate, setAnimals] = useState([])
 
-  // Testing that auth0_id works, setting auth0_id to 1
-  let auth0_id = 1
-  // Remove above once authentication is setup.
+  let auth0_id = '1' // Testing that auth0_id works, setting auth0_id to 1
+  console.log(animalsToRate) // Remove this once it has been used in the component.
 
+  // Remove above once authentication is setup.
   useEffect(() => {
     getAnimals(auth0_id)
       .then((animalsToRate) => {
