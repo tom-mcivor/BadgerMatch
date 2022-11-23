@@ -10,7 +10,10 @@ router.get('/', (req, res) => {
     .then((animals) =>
       res.json(animals[Math.floor(Math.random() * animals.length)])
     )
-    .catch(() => res.status(500).json({ message: 'Something went wrong' }))
+    .catch((error) => {
+      console.error(error.message)
+      res.status(500).json({ message: 'Something went wrong' })
+    })
 })
 
 module.exports = router
