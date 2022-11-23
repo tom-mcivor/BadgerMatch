@@ -2,19 +2,14 @@ import { getAnimalById, postResult } from '../apis/final'
 
 export const SET_ANIMAL = 'SET_ANIMAL'
 export const ADD_RESULT = 'ADD_RESULT'
-// 2. Create client/actions/final.js
-// Simple
-// SET_ANIMAL
-// ADD_RESULT
 
-export function setAnimal(animalId) {
+export function setAnimal(animalData) {
   return {
     type: SET_ANIMAL,
-    payload: animalId,
+    payload: animalData,
   }
 }
 
-// Thunk
 // GET_ANIMAL > dispatch request to api > once we get it,
 export function fetchAnimal(id) {
   return (dispatch) => {
