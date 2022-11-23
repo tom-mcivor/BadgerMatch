@@ -18,9 +18,10 @@ afterAll(() => {
 
 describe('getAnimals', () => {
   it('gets the animal from the animals table in the database.', () => {
-    expect.assertions(2)
+    expect.assertions(3)
     return getAnimals(testDb).then((animals) => {
       expect(animals[0].name).toBe('Bag Cat')
+      expect(animals[1].imageUrl).toBe('/images/mug-pup.jpg')
       expect(animals).toHaveLength(4)
     })
   })

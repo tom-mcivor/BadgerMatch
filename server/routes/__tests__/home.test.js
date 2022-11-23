@@ -4,6 +4,8 @@ const server = require('../../server')
 const { getAnimals } = require('../../db/home')
 jest.mock('../../db/home')
 
+jest.spyOn(console, 'error').mockImplementation(() => {})
+
 const getAnimalsMockData = [
   {
     id: 1,
@@ -33,15 +35,16 @@ describe('GET /api/v1/home/', () => {
       })
   })
   it('should return status 500 and an error message when database fails.', () => {
-    expect.assertions(2)
+    expect.assertions(3)
     getAnimals.mockImplementation(() =>
-      Promise.reject(new Error('Something went wrong'))
+      Promise.reject(new Error('This no worky'))
     )
     return request(server)
       .get('/api/v1/home/')
       .then((res) => {
         expect(res.status).toBe(500)
         expect(res.text).toContain('Something went wrong')
+        expect(console.error).toHaveBeenCalledWith('This no worky')
       })
   })
 })
