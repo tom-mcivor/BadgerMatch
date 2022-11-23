@@ -14,6 +14,7 @@ export default function Play() {
         setAnimals(animalsToRate)
         if (animalsToRate.length < 2) {
           console.log('re-direct') // Put front end re-direct function here
+          let animalsToDisplay = animalsToRate
         }
         let animalsToDisplay = randomToRate(animalsToRate)
         console.log(animalsToDisplay, 'To display') // Use these values on front end
@@ -36,6 +37,7 @@ export default function Play() {
 
   return (
     <>
+      {this.state.redirect ? <Redirect push to='/' /> : null}
       <h1>PLAY PAGE :D</h1>
     </>
   )
