@@ -27,7 +27,7 @@ export default function Final() {
   function handleResult(event) {
     event.preventDefault()
     dispatch(addResult({ ...result, disposition: event.target.value }))
-    // navigate('/play/winner')
+    navigate('/play/winner')
   }
 
   return (
