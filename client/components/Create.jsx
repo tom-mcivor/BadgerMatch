@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { create, getS3Url, fetchUrl } from '../apis/create'
+import { create, getS3Url } from '../apis/create'
 import styles from './Create.module.scss'
 import { useDropzone } from 'react-dropzone'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -11,7 +11,6 @@ const Create = () => {
     name: '',
     description: '',
     imageUrl: '',
-    // auth0Id: 1,
   })
   const [file, setFile] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -28,16 +27,17 @@ const Create = () => {
     e.preventDefault()
 
     setLoading(true)
+
     const token = await getAccessTokenSilently()
 
-    const { uploadUrl } = await getS3Url(token)
+    const { uploadUrl } = await getS3Url(file, token)
 
-    await fetchUrl(uploadUrl, file)
     const imageUrl = uploadUrl.split('?')[0]
 
     const newAnimal = { ...animal, imageUrl }
 
     await create(newAnimal, token)
+
     setLoading(false)
     setSuccess(true)
   }
