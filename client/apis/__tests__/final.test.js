@@ -1,7 +1,7 @@
 import nock from 'nock'
 import { getAnimalById, postResult } from '../final'
 
-const animadByIdMockData = {
+const animalByIdMockData = {
   id: 2,
   auth0_id: '1',
   name: 'Mug Pup',
@@ -23,10 +23,10 @@ describe('GET /api/v1/final/:id', () => {
     expect.assertions(1)
     const scope = nock('http://localhost')
       .get('/api/v1/final/2')
-      .reply(200, animadByIdMockData)
+      .reply(200, animalByIdMockData)
 
     const animalData = await getAnimalById(2)
-    expect(animalData).toEqual(animadByIdMockData)
+    expect(animalData).toEqual(animalByIdMockData)
     scope.done()
   })
 })

@@ -10,7 +10,6 @@ const final = (state = initialState, action) => {
       return payload
 
     case ADD_RESULT:
-      console.log(payload)
       return payload
 
     default:

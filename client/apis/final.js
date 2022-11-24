@@ -1,7 +1,6 @@
 import request from 'superagent'
 
 const rootUrl = '/api/v1'
-// can we use '/api/v1/final'?????
 
 // GET /api/v1/final/:id
 export function getAnimalById(id) {

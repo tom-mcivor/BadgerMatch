@@ -34,7 +34,6 @@ export function fetchAnimal(id) {
 }
 
 // add result to the table/db
-// console.log(response.body.Search)
 export function addResult(result) {
   return (dispatch) => {
     return postResult(result)
