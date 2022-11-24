@@ -19,7 +19,6 @@ export function submitResult(result) {
   }
 }
 
-// Thunk
 // get animal by id
 export function fetchAnimal(id) {
   return (dispatch) => {

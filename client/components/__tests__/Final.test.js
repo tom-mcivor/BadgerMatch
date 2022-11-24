@@ -14,13 +14,6 @@ const animalByIdMockData = {
   imageUrl: '/images/bag-cat.jpg',
 }
 
-const resultMockData = {
-  auth0_id: 1,
-  animal_id: 1,
-  created: new Date(Date.now()),
-  disposition: 'friend',
-}
-
 jest.mock('../../actions/final')
 
 beforeEach(() => {
@@ -31,7 +24,7 @@ const fakeStore = {
   subscribe: jest.fn(),
   dispatch: jest.fn(),
   getState: jest.fn(() => {
-    return { final: [animalByIdMockData, resultMockData] }
+    return { final: animalByIdMockData }
   }),
 }
 
@@ -50,10 +43,8 @@ describe('<Final/>', () => {
     })
     expect(animalName).toBeTruthy()
     const image = screen.getByRole('img')
-    console.log(image)
     expect(image.src).toMatch(animalByIdMockData.imageUrl)
   })
-
   it('dispatch the fetchAnimal thunk', () => {
     expect.assertions(1)
     const fetchAnimalContentMockReturn = () => 'mockReturnFunctionsReturnValue'
@@ -69,9 +60,10 @@ describe('<Final/>', () => {
       fetchAnimalContentMockReturn
     )
   })
-
-  it('save button event to redux state', () => {
+  it('dispatch the addResult thunk', () => {
     expect.assertions(1)
+    const addResultMockReturn = () => 'mockReturnFunctionsReturnValue'
+    addResult.mockReturnValue(addResultMockReturn)
     render(
       <Provider store={fakeStore}>
         <BrowserRouter>
@@ -81,20 +73,6 @@ describe('<Final/>', () => {
     )
     const result = screen.getAllByRole('button')[0]
     fireEvent.click(result, { target: { value: 'friend' } })
-    const state = fakeStore.getState()
-    expect(state.final[1].disposition).toContain(resultMockData.disposition)
-  })
-  it.todo('dispatch the addResult thunk', () => {
-    expect.assertions(1)
-    const addResultContentMockReturn = () => 'mockReturnFunctionsReturnValue'
-    fetchAnimal.mockReturnValue(addResultContentMockReturn)
-    render(
-      <Provider store={fakeStore}>
-        <BrowserRouter>
-          <Final />
-        </BrowserRouter>
-      </Provider>
-    )
-    expect(fakeStore.dispatch).toHaveBeenCalledWith(addResultContentMockReturn)
+    expect(fakeStore.dispatch).toHaveBeenCalledWith(addResultMockReturn)
   })
 })

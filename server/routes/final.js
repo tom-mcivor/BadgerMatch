@@ -16,7 +16,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const newResult = req.body
+  const newResult = { ...req.body, auth0_id: 1, created: new Date(Date.now()) }
   db.addResult(newResult)
     .then((ids) => {
       res.json(ids[0])
