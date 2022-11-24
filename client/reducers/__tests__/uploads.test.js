@@ -1,35 +1,15 @@
 import { SHOW_UPLOADS } from '../../actions/uploads'
 import uploadReducer from '../uploads'
-
-const uploads = [
-  {
-    name: 'Penguin',
-    imageUrl: '/penguin.png',
-    description: `I'm a lovely penguin`,
-    disposition: 'friend',
-  },
-  {
-    name: 'Puppy',
-    imageUrl: '/puppy.png',
-    description: `I'm a naughty puppy`,
-    disposition: 'foe',
-  },
-  {
-    name: 'Potato',
-    imageUrl: '/potato.png',
-    description: `I'm a stud I mean spud`,
-    disposition: 'friend',
-  },
-]
+import { homeContentMockData } from '../../../test/fake-data'
 
 describe('uploads reducer', () => {
   it('returns the action payload for type SHOW_UPLOADS.', () => {
     const action = {
       type: SHOW_UPLOADS,
-      payload: uploads,
+      payload: homeContentMockData,
     }
     const initialState = []
-    const expectedState = uploads
+    const expectedState = homeContentMockData
     const outputState = uploadReducer(initialState, action)
 
     expect(outputState).toEqual(expectedState)
