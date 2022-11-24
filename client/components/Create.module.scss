@@ -17,19 +17,19 @@
   }
 
   .form {
+    max-width: 40rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: fit-content;
-    height: 50%;
     background-color: $bright;
     color: $black;
-    font-family: $font-body;
+
     font-size: 1.5rem;
     font-weight: 500;
     border-radius: 8px;
     box-shadow: $shadow;
+    gap: 2rem;
     margin: 0 auto;
     label {
       margin: 1rem 0;
@@ -46,27 +46,34 @@
       border-radius: 0.5rem;
       background-color: $light;
       color: $black;
-      font-family: $font-body;
+
       font-size: 1.5rem;
       font-weight: 500;
     }
-    button {
-      margin: 1rem 0;
+
+    .dropZone {
+      width: 50%;
+      padding: 0.5rem 2.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      background-color: $light;
+      color: $black;
+
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin: 0 auto;
+    }
+    .button {
+      width: 50%;
       padding: 0.5rem 2.5rem;
       border: none;
       border-radius: 0.5rem;
       background-color: $medium;
-      color: $black;
-      font-family: $font-body;
+      color: $white;
+
       font-size: 1.5rem;
       font-weight: 500;
-      cursor: pointer;
-      transition-duration: 200ms;
-      &:hover {
-        transform: translateY(-3px);
-        transition-duration: 200ms;
-        box-shadow: $shadow;
-      }
+      margin: 1rem 0;
     }
   }
 }
