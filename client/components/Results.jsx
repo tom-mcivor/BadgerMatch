@@ -11,12 +11,12 @@ export default function Results() {
     dispatch(fetchResults())
   }, [])
   
- 
+
   return (
     <>
       <h1 className={styles.resultsheading} >Your Previous Results</h1>
       {results.map((result) => {
-        const { animalId, created, disposition, name, description, imageUrl } = result
+        const { id, created, disposition, name, description, imageUrl } = result
 
         const date = new Date(`${created}` * 1).toLocaleString()
 
@@ -25,10 +25,9 @@ export default function Results() {
           color: `${friendOrFoeColour}`,
         }
 
-        // if (!result) return <></>
-        
+        if (!result) return <></>
         return (
-          <div className={styles.resultscontainer} key={animalId}>
+          <div className={styles.resultscontainer} key={id}>
             <div className={styles.item1}>
               <img className={styles.image} src={imageUrl} width={400} alt={name} />
             </div>

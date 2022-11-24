@@ -10,6 +10,7 @@ function getResult(auth0id, db = connection) {
   .join('animals', 'results.animal_id', 'animals.id')
   .where('results.auth0_id', auth0id).select()
   .select(
+    'results.id as id',
     'results.auth0_id as auth0Id',
     'results.animal_id as animalId',
     'results.created',
