@@ -15,3 +15,24 @@ const resultMockData = {
   created: new Date(Date.now()),
   disposition: 'friend',
 }
+
+describe('final reducer', () => {
+  it('return the action payload for type SET_ANIMAL', () => {
+    expect.assertions(2)
+    const action = { type: SET_ANIMAL, payload: animalByIdMockData }
+
+    const initialState = []
+    const expectedState = animalByIdMockData
+    const outputState = final(initialState, action)
+
+    expect(outputState).toEqual(expectedState)
+    expect(outputState).not.toBe(initialState)
+  })
+  it('returns the default initial state for undefined state and no action type', () => {
+    expect.assertions(1)
+    const expectedState = []
+    const outputState = final(undefined, {})
+
+    expect(outputState).toEqual(expectedState)
+  })
+})
