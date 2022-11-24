@@ -90,5 +90,3 @@ describe('<Results />', () => {
     expect(animalLength).toHaveLength(3)
   })
 })
-
-// const animalsLength = resultContentMockData.length
