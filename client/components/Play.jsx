@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import AnimalTile from './AnimalTile'
 import '../styles/index.scss'
+import { updateAnimals } from '../actions/play'
 
 export default function Play() {
   const [animalsToRate, setAnimals] = useState([])
@@ -42,20 +43,23 @@ export default function Play() {
 
   // Adds the chosen or left-over animal to redux for final to call
   function addAnimalToRedux(animal) {
-    dispatch({ type: 'REPLACE_ANIMALS', payload: animal })
+    dispatch(updateAnimals(animal))
     navigate('/final')
   }
 
   return (
     <>
-      <h1>PLAY PAGE :D</h1>
+      <h1>Pick something chump</h1>
       <div className='animalCards'>
         {animalsToRate.map((animal) => {
           return (
-            <div key={animal.id}>
+            <div key={animal.id} className='animalTileWithButton'>
               <AnimalTile animal={animal} />
-              <div className='pickButton'>
-                <button onClick={() => addAnimalToRedux(animal)}>
+              <div className='pickButtonContainer'>
+                <button
+                  className='pickButton'
+                  onClick={() => addAnimalToRedux(animal)}
+                >
                   Pick Me
                 </button>
               </div>
