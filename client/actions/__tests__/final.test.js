@@ -51,7 +51,6 @@ describe('fetchAnimal', () => {
   })
 })
 
-// addResult thunk + action simple
 describe('addResult', () => {
   it('dispatches the ADD_RESULT action', () => {
     expect.assertions(1)

@@ -16,6 +16,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+  //TODO auth0_id is currently hardcoded for now
   const newResult = { ...req.body, auth0_id: 1, created: new Date(Date.now()) }
   db.addResult(newResult)
     .then((ids) => {

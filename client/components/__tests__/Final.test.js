@@ -29,6 +29,21 @@ const fakeStore = {
 }
 
 describe('<Final/>', () => {
+  it('dispatch the fetchAnimal thunk', () => {
+    expect.assertions(1)
+    const fetchAnimalContentMockReturn = () => 'mockReturnFunctionsReturnValue'
+    fetchAnimal.mockReturnValue(fetchAnimalContentMockReturn)
+    render(
+      <Provider store={fakeStore}>
+        <BrowserRouter>
+          <Final />
+        </BrowserRouter>
+      </Provider>
+    )
+    expect(fakeStore.dispatch).toHaveBeenCalledWith(
+      fetchAnimalContentMockReturn
+    )
+  })
   it('display image and animal name from redux state by ID.', () => {
     expect.assertions(2)
     render(
@@ -44,21 +59,6 @@ describe('<Final/>', () => {
     expect(animalName).toBeTruthy()
     const image = screen.getByRole('img')
     expect(image.src).toMatch(animalByIdMockData.imageUrl)
-  })
-  it('dispatch the fetchAnimal thunk', () => {
-    expect.assertions(1)
-    const fetchAnimalContentMockReturn = () => 'mockReturnFunctionsReturnValue'
-    fetchAnimal.mockReturnValue(fetchAnimalContentMockReturn)
-    render(
-      <Provider store={fakeStore}>
-        <BrowserRouter>
-          <Final />
-        </BrowserRouter>
-      </Provider>
-    )
-    expect(fakeStore.dispatch).toHaveBeenCalledWith(
-      fetchAnimalContentMockReturn
-    )
   })
   it('dispatch the addResult thunk', () => {
     expect.assertions(1)
