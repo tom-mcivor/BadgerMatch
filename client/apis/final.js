@@ -6,7 +6,6 @@ const rootUrl = '/api/v1'
 // GET /api/v1/final/:id
 export function getAnimalById(id) {
   return request.get(`${rootUrl}/final/${id}`).then((res) => {
-    console.log(res.body)
     return res.body
   })
 }

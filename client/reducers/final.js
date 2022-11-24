@@ -7,7 +7,7 @@ const final = (state = initialState, action) => {
 
   switch (type) {
     case SET_ANIMAL:
-      return [...state, payload]
+      return payload
 
     default:
       return state

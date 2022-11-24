@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import AnimalTile from './AnimalTile'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { fetchAnimal } from '../actions/final'
 
 export default function Final() {
@@ -10,22 +10,42 @@ export default function Final() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const singleAnimal = useSelector((state) => state.final)
-
   const id = Number(params.id)
 
+  //where we take the button input and pass to submit function
+  const [result, setResult] = useState({
+    auth0_id: 1,
+    animal_id: id,
+    created: new Date(Date.now()),
+    disposition: '',
+  })
+
+  //where we load the animal data by id
   useEffect(() => {
     dispatch(fetchAnimal(id))
   }, [])
 
+  //handle on click function to send result of button click friend or foe to db
+  function handleResult(event) {
+    event.preventDefault()
+    setResult({
+      ...result,
+      [event.target.name]: event.target.value,
+    })
+    dispatch()
+  }
+
   return (
     <>
-      <form action=''>
-        <button></button>
+      <form>
+        <button value='Friend' name='disposition' onClick={handleResult}>
+          Friend
+        </button>
+        <button value='Foe' name='disposition' onClick={handleResult}>
+          Foe
+        </button>
       </form>
       <h1>Final PAGE :D</h1>
-      <p>{singleAnimal.name}</p>
-      <p>{singleAnimal.description}</p>
-      <img src={singleAnimal.imageUrl} alt={singleAnimal.name} />
       <AnimalTile animal={singleAnimal} />
     </>
   )
@@ -39,4 +59,5 @@ export default function Final() {
 // load animal from database using that param id DONE
 // display animal data on screen (animal tile component)
 // POST form, add/send result back to database
+// (clickHandle =>friend and foe)
 // navigate to /play/winner

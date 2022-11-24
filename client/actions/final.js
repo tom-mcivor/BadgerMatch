@@ -12,6 +12,9 @@ export function setAnimal(animalData) {
 }
 
 // simple action postResult
+export function submitResult(result) {
+  return dispatch
+}
 
 // Thunk
 // get animal by id
