@@ -10,13 +10,45 @@ const Create = () => {
   const [animal, setAnimal] = useState({
     name: '',
     description: '',
-    imageUrl: '',
   })
 
   const [file, setFile] = useState(null)
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
+
+  const validateFields = (animal, file) => {
+    if (!animal.name || !animal.description || !file) {
+      setError('Please fill out all fields')
+
+      return false
+    }
+
+    const validExtensions = ['jpg', 'jpeg', 'png', 'webp']
+    const fileExtension = file.name.split('.')[1]
+
+    if (!validExtensions.includes(fileExtension)) {
+      setError('Invalid file type, please upload a jpg, jpeg, png or webp file')
+
+      return false
+    }
+    return true
+  }
+
+  const handleApi = async () => {
+    const token = await getAccessTokenSilently()
+
+    const { uploadUrl } = await getS3Url(file, token)
+    const imageUrl = uploadUrl.split('?')[0]
+    const newAnimal = { ...animal, imageUrl }
+
+    await create(newAnimal, token)
+
+    setLoading(false)
+    setSuccess(true)
+    setAnimal({ name: '', description: '', imageUrl: '' })
+    setFile(null)
+  }
 
   const handleChange = (e) => {
     setAnimal({ ...animal, [e.target.name]: e.target.value })
@@ -29,36 +61,12 @@ const Create = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (!animal.name || !animal.description || !file) {
-      setError('Please fill out all fields')
-      return
+    const formIsValid = validateFields(animal, file)
+
+    if (formIsValid) {
+      setLoading(true)
+      await handleApi()
     }
-
-    const validExtensions = ['jpg', 'jpeg', 'png', 'webp']
-    const fileExtension = file.name.split('.')[1]
-
-    if (!validExtensions.includes(fileExtension)) {
-      setError('Invalid file type, please upload a jpg, jpeg, png or webp file')
-      return
-    }
-
-    setLoading(true)
-
-    const token = await getAccessTokenSilently()
-
-    const { uploadUrl } = await getS3Url(file, token)
-
-    const imageUrl = uploadUrl.split('?')[0]
-
-    const newAnimal = { ...animal, imageUrl }
-
-    await create(newAnimal, token)
-
-    setLoading(false)
-    setSuccess(true)
-    setAnimal({ name: '', description: '', imageUrl: '' })
-
-    setFile(null)
   }
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -99,16 +107,20 @@ const Create = () => {
           aria-label='Description:'
           data-testid='description-input'
         />
-        <div {...getRootProps()}>
+        <div {...getRootProps()} data-testid='dropzone'>
           <input
             {...getInputProps()}
             data-testid='image-input'
             accept='image/*'
           />
           {file ? (
-            <p className={styles.dropZone}>{file.name}</p>
+            <p className={styles.dropZone} data-testid='file-present'>
+              {file.name}
+            </p>
           ) : (
-            <p className={styles.dropZone}>Drag, or click to select files</p>
+            <p className={styles.dropZone} data-testid='file-missing'>
+              Drag, or click to select files
+            </p>
           )}
         </div>
         <button
