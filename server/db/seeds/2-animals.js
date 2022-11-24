@@ -36,7 +36,7 @@ exports.seed = async (knex) => {
       name: 'grommit',
       description: 'I like cheese',
       image_url:
-        'https://static.wikia.nocookie.net/universalstudios/images/1/1a/The-Curse-of-the-Were-Rabbit-wallace-and-gromit-118082_1508_1820.jpg/revision/latest?cb=20201117170912',
+        'https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80',
     },
     {
       id: 6,
@@ -44,7 +44,7 @@ exports.seed = async (knex) => {
       name: 'wallace',
       description: 'I like cheese',
       image_url:
-        'https://static.wikia.nocookie.net/universalstudios/images/a/a9/Wallace_thumb_up.png/revision/latest?cb=20180227050041',
+        'https://images.unsplash.com/photo-1595703013566-db085ae93c04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80',
     },
   ])
 }

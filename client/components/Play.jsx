@@ -1,7 +1,9 @@
-import React, { useEffect, useState, getState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getAnimals } from '../apis/play'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import AnimalTile from './AnimalTile'
+import '../styles/index.scss'
 
 export default function Play() {
   const [animalsToRate, setAnimals] = useState([])
@@ -19,9 +21,8 @@ export default function Play() {
           // First need to clear the saved animals
           addAnimalToRedux(animalsToRate)
           navigate('/final')
-        } else {
-          let animalsToDisplay = randomToRate(animalsToRate)
         }
+        setAnimals(randomToRate(animalsToRate))
       })
       .catch((err) => {
         console.error(err.message)
@@ -41,14 +42,27 @@ export default function Play() {
 
   // Adds the chosen or left-over animal to redux for final to call
   function addAnimalToRedux(animal) {
-    let previousAnimalsToRate = useSelector((state) => state.play)
-    dispatch({ type: 'DELETE_ANIMAL', payload: previousAnimalsToRate })
-    dispatch({ type: 'ADD_ANIMAL', payload: animal })
+    dispatch({ type: 'REPLACE_ANIMALS', payload: animal })
+    navigate('/final')
   }
 
   return (
     <>
       <h1>PLAY PAGE :D</h1>
+      <div className='animalCards'>
+        {animalsToRate.map((animal) => {
+          return (
+            <div key={animal.id}>
+              <AnimalTile animal={animal} />
+              <div className='pickButton'>
+                <button onClick={() => addAnimalToRedux(animal)}>
+                  Pick Me
+                </button>
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </>
   )
 }

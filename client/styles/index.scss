@@ -9,3 +9,15 @@ body {
 p { margin: 0px; }
 
 a { text-decoration: none; color: theme.$text-black; cursor: pointer; }
+
+.animalCards {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin:20px;
+  
+}
+
+.pickButton {
+  align-items: center; flex-direction: column; position: relative;
+}

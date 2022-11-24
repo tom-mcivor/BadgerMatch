@@ -20,13 +20,8 @@ const play = (state = initialState, action) => {
   const { type, payload } = action
 
   switch (type) {
-    case 'ADD_DESTINATION':
-      return [...state, payload]
-    case 'DELETE_DESTINATION':
-      return {
-        ...state,
-        items: state.items.filter((item, index) => index !== action.payload),
-      }
+    case 'REPLACE_ANIMALS':
+      return (state = payload)
     default:
       return state
   }
