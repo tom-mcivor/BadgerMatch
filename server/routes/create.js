@@ -30,7 +30,6 @@ router.get('/s3Url', checkJwt, async (req, res) => {
     }
 
     const uploadUrl = s3.getSignedUrl('putObject', params)
-    console.log(uploadUrl, 'uploadUrl')
     res.json({ uploadUrl, imageName })
   } catch (err) {
     res.status(500).send(err.message)
@@ -39,8 +38,7 @@ router.get('/s3Url', checkJwt, async (req, res) => {
 
 router.post('/', checkJwt, async (req, res) => {
   try {
-    const auth0Id = req.user?.sub
-    console.log(auth0Id) //undefined
+    const auth0Id = req.auth?.sub
     const { name, description, imageUrl } = req.body
     await create(auth0Id, name, description, imageUrl)
     res.sendStatus(200)
