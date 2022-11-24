@@ -10,6 +10,7 @@ const animalByIdMockData = {
 }
 
 const resultMockData = {
+  id: 1,
   auth0_id: 1,
   animal_id: 1,
   created: new Date(Date.now()),
@@ -28,6 +29,20 @@ describe('final reducer', () => {
     expect(outputState).toEqual(expectedState)
     expect(outputState).not.toBe(initialState)
   })
+  it('return the action for type ADD_RESULT', () => {
+    expect.assertions(2)
+    const action = {
+      type: ADD_RESULT,
+      payload: resultMockData,
+    }
+    const initialState = []
+    const expectedState = resultMockData
+    const outputState = final(initialState, action)
+
+    expect(outputState).toEqual(expectedState)
+    expect(outputState).not.toBe(initialState)
+  })
+
   it('returns the default initial state for undefined state and no action type', () => {
     expect.assertions(1)
     const expectedState = []
