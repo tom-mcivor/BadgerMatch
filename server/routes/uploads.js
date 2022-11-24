@@ -4,6 +4,7 @@ const router = express.Router()
 
 //GET /api/v1/uploads
 router.get('/', (req, res) => {
+ // TODO: auth0id is hardcoded for now until auth is set up
   const auth0id = 1
   db.getUploads(auth0id)
     .then((uploads) => {
