@@ -6,24 +6,25 @@ import { BrowserRouter } from 'react-router-dom'
 import Results from '../Results'
 import { fetchResults } from '../../actions/results'
 
-const resultContentMockData = [{
-  name: 'Penguin',
-  imageUrl: '/penguin.png',
-  description: `I'm a lovely penguin`,
-  disposition: 'friend'
-},
-{
-  name: 'Puppy',
-  imageUrl: '/puppy.png',
-  description: `I'm a naughty puppy`,
-  disposition: 'foe'
-},
-{
-  name: 'Potato',
-  imageUrl: '/potato.png',
-  description: `I'm a stud I mean spud`,
-  disposition: 'friend'
-}
+const resultContentMockData = [
+  {
+    name: 'Penguin',
+    imageUrl: '/penguin.png',
+    description: `I'm a lovely penguin`,
+    disposition: 'friend',
+  },
+  {
+    name: 'Puppy',
+    imageUrl: '/puppy.png',
+    description: `I'm a naughty puppy`,
+    disposition: 'foe',
+  },
+  {
+    name: 'Potato',
+    imageUrl: '/potato.png',
+    description: `I'm a stud I mean spud`,
+    disposition: 'friend',
+  },
 ]
 
 jest.mock('../../actions/results')
@@ -52,15 +53,21 @@ describe('<Results />', () => {
     )
     const animalName = screen.getAllByText(/penguin/i)
     expect(animalName[0]).toBeInTheDocument()
-    const animalDescription = screen.getByText(resultContentMockData[1].description, {
-      exact: false,
-    })
+    const animalDescription = screen.getByText(
+      resultContentMockData[1].description,
+      {
+        exact: false,
+      }
+    )
     expect(animalDescription).toBeInTheDocument(`I'm a naughty puppy`)
-    const animalDisposition = screen.getAllByText(resultContentMockData[2].disposition, {
-      exact: false,
-    })
+    const animalDisposition = screen.getAllByText(
+      resultContentMockData[2].disposition,
+      {
+        exact: false,
+      }
+    )
     expect(animalDisposition[4].innerHTML).toContain('FRIEND')
-    
+
     const image = screen.getAllByRole('img')[0]
     expect(image.src).toMatch('/penguin.png')
   })
@@ -75,9 +82,11 @@ describe('<Results />', () => {
         </BrowserRouter>
       </Provider>
     )
-    expect(fakeStore.dispatch).toHaveBeenCalledWith(fetchResultContentMockReturn)
+    expect(fakeStore.dispatch).toHaveBeenCalledWith(
+      fetchResultContentMockReturn
+    )
   })
-  it('checks if the correct amount of animals show on the page', () => {
+  it('shows the correct number of animals on the page', () => {
     expect.assertions(1)
     render(
       <Provider store={fakeStore}>
@@ -86,7 +95,7 @@ describe('<Results />', () => {
         </BrowserRouter>
       </Provider>
     )
-    const animalLength = screen.getAllByRole('banner')
+    const animalLength = screen.getAllByRole('heading', { level: 2 })
     expect(animalLength).toHaveLength(3)
   })
 })
