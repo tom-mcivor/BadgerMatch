@@ -12,19 +12,35 @@ const Create = () => {
     description: '',
     imageUrl: '',
   })
+
   const [file, setFile] = useState(null)
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
 
   const handleChange = (e) => {
     setAnimal({ ...animal, [e.target.name]: e.target.value })
   }
+
   const handleFileChange = async (acceptedFiles) => {
     setFile(acceptedFiles[0])
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    if (!animal.name || !animal.description || !file) {
+      setError('Please fill out all fields')
+      return
+    }
+
+    const validExtensions = ['jpg', 'jpeg', 'png', 'webp']
+    const fileExtension = file.name.split('.')[1]
+
+    if (!validExtensions.includes(fileExtension)) {
+      setError('Invalid file type, please upload a jpg, jpeg, png or webp file')
+      return
+    }
 
     setLoading(true)
 
@@ -40,10 +56,15 @@ const Create = () => {
 
     setLoading(false)
     setSuccess(true)
+    setAnimal({ name: '', description: '', imageUrl: '' })
+
+    setFile(null)
   }
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleFileChange,
+    accept: 'image/*',
+    multiple: false,
   })
 
   return (
@@ -79,7 +100,11 @@ const Create = () => {
           data-testid='description-input'
         />
         <div {...getRootProps()}>
-          <input {...getInputProps()} data-testid='image-input' />
+          <input
+            {...getInputProps()}
+            data-testid='image-input'
+            accept='image/*'
+          />
           {file ? (
             <p className={styles.dropZone}>{file.name}</p>
           ) : (
@@ -96,6 +121,7 @@ const Create = () => {
       </form>
       {loading && <p data-testid='loading'>Loading...</p>}
       {success && <p data-testid='success'>Success!</p>}
+      {error && <p data-testid='error'>{error}</p>}
     </div>
   )
 }
