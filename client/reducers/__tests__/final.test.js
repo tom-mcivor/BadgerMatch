@@ -30,7 +30,7 @@ describe('final reducer', () => {
     expect(outputState).not.toBe(initialState)
   })
   it('return the action for type ADD_RESULT', () => {
-    expect.assertions(2)
+    expect.assertions(1)
     const action = {
       type: ADD_RESULT,
       payload: resultMockData,
@@ -40,7 +40,6 @@ describe('final reducer', () => {
     const outputState = final(initialState, action)
 
     expect(outputState).toEqual(expectedState)
-    expect(outputState).not.toBe(initialState)
   })
 
   it('returns the default initial state for undefined state and no action type', () => {

@@ -1,13 +1,10 @@
 import { fetchAnimal, addResult, SET_ANIMAL, ADD_RESULT } from '../final'
 import { getAnimalById, postResult } from '../../apis/final'
+import { post } from 'superagent'
 
 jest.mock('../../apis/final')
 
 const fakeDispatch = jest.fn()
-
-beforeEach(() => {
-  jest.clearAllMocks()
-})
 
 const animalByIdMockData = {
   id: 2,
@@ -27,8 +24,7 @@ const resultMockData = {
 describe('fetchAnimal', () => {
   it('dispatchs the SET_ANIMAL action', () => {
     expect.assertions(2)
-    getAnimalById.mockImplementation((id) => {
-      expect(id).toBe(2)
+    getAnimalById.mockImplementation(() => {
       return Promise.resolve(animalByIdMockData)
     })
     return fetchAnimal(2)(fakeDispatch).then(() => {
@@ -36,6 +32,7 @@ describe('fetchAnimal', () => {
         type: SET_ANIMAL,
         payload: animalByIdMockData,
       })
+      expect(getAnimalById).toHaveBeenCalledWith(2)
     })
   })
   it('should console.error() if api request fails', () => {
@@ -52,14 +49,16 @@ describe('fetchAnimal', () => {
 })
 
 describe('addResult', () => {
+  beforeEach(() => jest.clearAllMocks())
   it('dispatches the ADD_RESULT action', () => {
-    expect.assertions(1)
+    expect.assertions(2)
     postResult.mockReturnValue(Promise.resolve(1))
     return addResult(resultMockData)(fakeDispatch).then(() => {
       expect(fakeDispatch).toHaveBeenCalledWith({
         type: ADD_RESULT,
         payload: { ...resultMockData, id: 1 },
       })
+      expect(postResult).toHaveBeenCalledWith(resultMockData)
     })
   })
   it('should console.error() if api request fails', () => {
