@@ -77,4 +77,19 @@ describe('<Results />', () => {
     )
     expect(fakeStore.dispatch).toHaveBeenCalledWith(fetchResultContentMockReturn)
   })
+  it('checks if the correct amount of animals show on the page', () => {
+    expect.assertions(1)
+    render(
+      <Provider store={fakeStore}>
+        <BrowserRouter>
+          <Results />
+        </BrowserRouter>
+      </Provider>
+    )
+
+
+    screen.getAllByRole('heading')
+  })
 })
+
+// const animalsLength = resultContentMockData.length
