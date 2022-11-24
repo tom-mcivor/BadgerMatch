@@ -2,37 +2,42 @@ import React, { useState } from 'react'
 import { create, getS3Url, fetchUrl } from '../apis/create'
 import styles from './Create.module.scss'
 import { useDropzone } from 'react-dropzone'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const Create = () => {
+  const { getAccessTokenSilently } = useAuth0()
+
   const [animal, setAnimal] = useState({
     name: '',
     description: '',
     imageUrl: '',
-    auth0Id: 1,
+    // auth0Id: 1,
   })
   const [file, setFile] = useState(null)
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
 
-  const handleChange = (event) => {
-    setAnimal({ ...animal, [event.target.name]: event.target.value })
+  const handleChange = (e) => {
+    setAnimal({ ...animal, [e.target.name]: e.target.value })
   }
   const handleFileChange = async (acceptedFiles) => {
     setFile(acceptedFiles[0])
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
     setLoading(true)
-    const { uploadUrl } = await getS3Url()
-    console.log(uploadUrl, 'uploadUrl')
+    const token = await getAccessTokenSilently()
+
+    const { uploadUrl } = await getS3Url(token)
 
     await fetchUrl(uploadUrl, file)
     const imageUrl = uploadUrl.split('?')[0]
 
     const newAnimal = { ...animal, imageUrl }
 
-    await create(newAnimal)
+    await create(newAnimal, token)
     setLoading(false)
     setSuccess(true)
   }
@@ -74,7 +79,7 @@ const Create = () => {
           data-testid='description-input'
         />
         <div {...getRootProps()}>
-          <input {...getInputProps()} data-testId='image-input' />
+          <input {...getInputProps()} data-testid='image-input' />
           {file ? (
             <p className={styles.dropZone}>{file.name}</p>
           ) : (
