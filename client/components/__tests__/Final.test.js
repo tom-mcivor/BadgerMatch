@@ -50,8 +50,10 @@ describe('<Final/>', () => {
     })
     expect(animalName).toBeTruthy()
     const image = screen.getByRole('img')
+    console.log(image)
     expect(image.src).toMatch(animalByIdMockData.imageUrl)
   })
+
   it('dispatch the fetchAnimal thunk', () => {
     expect.assertions(1)
     const fetchAnimalContentMockReturn = () => 'mockReturnFunctionsReturnValue'
@@ -63,7 +65,7 @@ describe('<Final/>', () => {
         </BrowserRouter>
       </Provider>
     )
-    expect(fakeStore.dispatch[0]).toHaveBeenCalledWith(
+    expect(fakeStore.dispatch).toHaveBeenCalledWith(
       fetchAnimalContentMockReturn
     )
   })
@@ -79,10 +81,20 @@ describe('<Final/>', () => {
     )
     const result = screen.getAllByRole('button')[0]
     fireEvent.click(result, { target: { value: 'friend' } })
-    const button = screen.getAllByRole('button')
-    fireEvent.click(button)
     const state = fakeStore.getState()
-    console.log(state)
-    expect(state.final[1]).toEqual(resultMockData.disposition)
+    expect(state.final[1].disposition).toContain(resultMockData.disposition)
+  })
+  it.todo('dispatch the addResult thunk', () => {
+    expect.assertions(1)
+    const addResultContentMockReturn = () => 'mockReturnFunctionsReturnValue'
+    fetchAnimal.mockReturnValue(addResultContentMockReturn)
+    render(
+      <Provider store={fakeStore}>
+        <BrowserRouter>
+          <Final />
+        </BrowserRouter>
+      </Provider>
+    )
+    expect(fakeStore.dispatch).toHaveBeenCalledWith(addResultContentMockReturn)
   })
 })

@@ -26,6 +26,7 @@ export default function Final() {
   //handle on click function to send result of button click friend or foe to db
   function handleResult(event) {
     event.preventDefault()
+    // console.log({ ...result, disposition: event.target.value })
     dispatch(addResult({ ...result, disposition: event.target.value }))
     navigate('/play/winner')
   }
