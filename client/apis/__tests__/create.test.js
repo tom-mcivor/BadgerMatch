@@ -1,5 +1,5 @@
 import nock from 'nock'
-import { create, getS3Url, fetchUrl } from '../create'
+import { create, getS3Url } from '../create'
 
 const createContentMockData = {
   name: 'Borris',
@@ -10,7 +10,9 @@ const createContentMockData = {
 const fakeToken = 'anything'
 
 const fetchUrlMockData = {
-  uploadUrl: 'https://s3.amazonaws.com/random-bucket-name/1234567890.jpeg',
+  uploadUrl:
+    'https://badgermatch.s3.ap-southeast-2.amazonaws.com/16693&X-Amz-SignedHeaders=host',
+  imageName: '/images/boris.jpg',
 }
 
 test('1=1', () => {
@@ -29,25 +31,20 @@ describe('create', () => {
   })
 })
 
-// // TODO: Fix this test
-// describe('getS3Url', () => {
-//   it('should return a uploadUrl', async () => {
-//     expect.assertions(2)
-//     const scope = nock('http://localhost')
-//       .get('/api/v1/create/s3Url')
-//       .reply(200, { uploadUrl: 'mockUploadUrl', token: fakeToken })
-//     const res = await getS3Url()
-//     expect(res).toEqual({ uploadUrl: 'mockUploadUrl', token: fakeToken })
-//     expect(scope.isDone()).toBeTruthy()
-//   })
-
-//   it('should post to the s3Url', async () => {
-//     expect.assertions(2)
-//     const scope = nock('http://localhost')
-//       .post('/api/v1/create/s3Url')
-//       .reply(200, { uploadUrl: 'mockUploadUrl', token: fakeToken })
-//     const res = await getS3Url()
-//     expect(res).toEqual({ uploadUrl: 'mockUploadUrl', token: fakeToken })
-//     expect(scope.isDone()).toBeTruthy()
-//   })
-// })
+describe('getS3Url', () => {
+  it('should return a uploadUrl', async () => {
+    expect.assertions(3)
+    const scope = nock('http://localhost')
+      .get('/api/v1/create/s3Url')
+      .reply(200, { ...fetchUrlMockData, token: fakeToken })
+    const uploadScope = nock(
+      'https://badgermatch.s3.ap-southeast-2.amazonaws.com'
+    )
+      .put('/16693&X-Amz-SignedHeaders=host')
+      .reply(200)
+    const res = await getS3Url(createContentMockData, fakeToken)
+    expect(res).toEqual({ ...fetchUrlMockData, token: fakeToken })
+    expect(scope.isDone()).toBeTruthy()
+    expect(uploadScope.isDone()).toBeTruthy()
+  })
+})
