@@ -28,10 +28,10 @@ export default function Results() {
           <img className={styles.image} src={result?.imageUrl} width={400} alt={result?.name}/>
           </div>
           <div className={styles.item2}>
-          <div className={styles.friendorfoe} > Friend or Foe? <div style={textColour}>{result?.disposition.toUpperCase()}</div></div>
-          <div className={styles.name} >My name is {result?.name}</div>
-          <div>We met on: {date}</div>
-          <div>About me: {result?.description}</div>
+            <header className={styles.friendorfoe} > Friend or Foe? <p style={textColour}>{result?.disposition.toUpperCase()}</p></header>
+            <p className={styles.name} >My name is {result?.name}</p>
+            <p>We met on: {date}</p>
+            <p>About me: {result?.description}</p>
           </div>
         </div>
       )}

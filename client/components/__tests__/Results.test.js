@@ -55,7 +55,7 @@ describe('<Results />', () => {
     const animalDescription = screen.getByText(resultContentMockData[1].description, {
       exact: false,
     })
-    expect(animalDescription.innerHTML).toContain(`I'm a naughty puppy`)
+    expect(animalDescription).toBeInTheDocument(`I'm a naughty puppy`)
     const animalDisposition = screen.getAllByText(resultContentMockData[2].disposition, {
       exact: false,
     })
@@ -63,9 +63,6 @@ describe('<Results />', () => {
     
     const image = screen.getAllByRole('img')[0]
     expect(image.src).toMatch('/penguin.png')
-    
-    console.log(animalName)
-    
   })
   it('dispatches the fetchResults thunk.', () => {
     expect.assertions(1)
