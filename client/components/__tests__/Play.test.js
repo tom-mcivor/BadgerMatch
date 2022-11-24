@@ -54,7 +54,7 @@ describe('<Play />', () => {
     })
   })
   it('executes save to Thunk on clickhandler, and navigates to final', async () => {
-    expect.assertions(1)
+    expect.assertions(2)
     getAnimals.mockReturnValue(Promise.resolve(playAnimalsMockData))
     render(
       <Provider store={store}>
@@ -65,6 +65,9 @@ describe('<Play />', () => {
       userEvent.click(screen.getAllByRole('button')[0])
       useNavigate.mockImplementation(() => {})
       expect(useNavigate).toHaveBeenCalled()
+      const buttons = screen.getAllByRole('button')
+      // Tiles count as buttons due to its component design
+      expect(buttons).toHaveLength(4)
     })
   })
 })

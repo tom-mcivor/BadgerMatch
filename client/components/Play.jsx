@@ -10,12 +10,10 @@ export default function Play() {
   const [animalsToRate, setAnimals] = useState([])
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  let auth0_id = '1' // Testing that auth0_id works, setting auth0_id to 1
-  // Remove this once it has been used in the component.
 
   // Remove above once authentication is setup.
   useEffect(() => {
-    getAnimals(auth0_id)
+    getAnimals()
       .then((animalsToRate) => {
         setAnimals(animalsToRate)
         if (animalsToRate.length < 2) {
@@ -35,6 +33,7 @@ export default function Play() {
     let indexLength = animalsToRate.length
     let num1 = Math.floor(Math.random() * indexLength)
     let num2 = 0
+    // The while loop will only run if the two values are the same
     do {
       num2 = Math.floor(Math.random() * indexLength)
     } while (num1 === num2)
@@ -44,7 +43,7 @@ export default function Play() {
   // Adds the chosen or left-over animal to redux for final to call
   function addAnimalToRedux(animal) {
     dispatch(updateAnimals(animal))
-    navigate('/final')
+    navigate('/final', animal)
   }
 
   return (
