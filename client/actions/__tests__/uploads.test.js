@@ -1,5 +1,5 @@
 import fetchUploads, { SHOW_UPLOADS } from '../uploads'
-import { getUpload } from '../../apis/uploads'
+import { getUploads } from '../../apis/uploads'
 
 jest.mock('../../apis/uploads')
 
@@ -44,7 +44,7 @@ const uploads = [
 
 describe('Uploads page', () => {
   it('dispatches the SHOW_UPLOADS action.', () => {
-    getUpload.mockReturnValue(Promise.resolve(uploads))
+    getUploads.mockReturnValue(Promise.resolve(uploads))
     return fetchUploads()(fakeDispatch).then(() => {
       expect(fakeDispatch).toHaveBeenCalledWith({
         type: SHOW_UPLOADS,
@@ -56,7 +56,7 @@ describe('Uploads page', () => {
     expect.assertions(1)
     jest.spyOn(console, 'error')
     console.error.mockImplementation(() => {})
-    getUpload.mockImplementation(() =>
+    getUploads.mockImplementation(() =>
       Promise.reject(new Error('Something went wrong'))
     )
     return fetchUploads()(fakeDispatch).then(() => {

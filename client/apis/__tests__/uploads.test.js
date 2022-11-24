@@ -1,5 +1,5 @@
 import nock from 'nock'
-import { getUpload } from '../uploads'
+import { getUploads } from '../uploads'
 
 const uploads = [
   {
@@ -41,7 +41,7 @@ describe('GET /api/v1/uploads', () => {
       .get('/api/v1/uploads/')
       .reply(200, uploads)
 
-    const uploadContent = await getUpload()
+    const uploadContent = await getUploads()
     expect(uploadContent).toEqual(uploads)
     scope.done()
   })

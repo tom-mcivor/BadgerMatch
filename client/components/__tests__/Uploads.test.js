@@ -75,7 +75,7 @@ describe('<Uploads />', () => {
     expect(image.src).toMatch('/images/bag-cat.jpg')
   })
   // This won't work until the back end is wired up
-  it.skip('dispatches the fetchUpload thunk.', () => {
+  it.skip('dispatches the fetchUploads thunk.', () => {
     expect.assertions(1)
     const fetchUploadContentMockReturn = () => 'mockReturnFunctionsReturnValue'
     fetchUploads.mockReturnValue(fetchUploadContentMockReturn)
@@ -89,5 +89,10 @@ describe('<Uploads />', () => {
     expect(fakeStore.dispatch).toHaveBeenCalledWith(
       fetchUploadContentMockReturn
     )
+  })
+  it('check amount of uploads matches', () => {
+    render(<Uploads />)
+    const listUpdates = screen.getAllByRole('img')
+    expect(listUpdates).toHaveLength(4)
   })
 })

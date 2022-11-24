@@ -1,10 +1,10 @@
 import {
-  getUpload,
+  getUploads,
 } from '../apis/uploads'
 
 export const SHOW_UPLOADS = 'SHOW_UPLOADS'
 
-export function showUpload(user){
+export function showUploads(user){
   return {
     type: 'SHOW_UPLOADS',
     payload: user
@@ -13,9 +13,9 @@ export function showUpload(user){
 
 export default function fetchUploads(){
   return (dispatch) => {
-    return getUpload()
+    return getUploads()
     .then((user) => {
-      dispatch(showUpload(user))
+      dispatch(showUploads(user))
       return null
     })
     .catch((err) => console.error(err.message))
