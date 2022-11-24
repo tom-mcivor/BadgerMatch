@@ -86,9 +86,8 @@ describe('<Results />', () => {
         </BrowserRouter>
       </Provider>
     )
-
-
-    screen.getAllByRole('heading')
+    const animalLength = screen.getAllByRole('banner')
+    expect(animalLength).toHaveLength(3)
   })
 })
 
