@@ -6,7 +6,12 @@ module.exports = {
 }
 
 function getUploads(auth0id, db = connection) {
-  return db('animals').where('auth0_id', auth0id).select()
+  return db('animals').where('auth0_id', auth0id)
+  .select(
+  'animals.name',
+  'animals.description',
+  'animals.image_url as imageUrl'
+  )
 }
 
 

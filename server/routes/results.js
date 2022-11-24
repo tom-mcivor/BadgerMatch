@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
   db.getResult(auth0id)
     .then((result) => {
       res.json(result)
+    
     })
     .catch((err) => {
       console.error(err.message)

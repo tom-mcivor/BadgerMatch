@@ -18,7 +18,7 @@ server.use('/api/v1/play', playRoutes)
 server.use('/api/v1/final', finalRoutes)
 server.use('/api/v1/results', resultsRoutes)
 server.use('/api/v1/create', createRoutes)
-server.use('./api/v1/uploads', uploadsRoutes)
+server.use('/api/v1/uploads', uploadsRoutes)
 
 server.get('*', (req, res) => {
   res.sendFile(path.resolve('server/public/index.html'))

@@ -2,8 +2,9 @@ const express = require('express')
 const db = require('../db/uploads.js')
 const router = express.Router()
 
-///api/v1/uploads
+//GET /api/v1/uploads
 router.get('/', (req, res) => {
+  console.log('route hit')
   const auth0id = 1
   db.getUploads(auth0id)
     .then((uploads) => {
