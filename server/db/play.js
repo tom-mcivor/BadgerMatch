@@ -2,23 +2,17 @@ const environment = process.env.NODE_ENV || 'development'
 const config = require('./knexfile')[environment]
 const connection = require('knex')(config)
 
-module.exports = { getRatedBadgers, getResultsForBadger }
+module.exports = { getUnratedBadgers }
 
-function getResultsForBadger(auth0_id, db = connection) {
-  return db('results').where('auth0_id', auth0_id)
-}
-
-function getRatedBadgers(auth0_id, db = connection) {
-  return getResultsForBadger(auth0_id, db).then((animals) => {
-    const animal_id = animals.map((animal) => animal.animal_id)
-    return db('animals')
-      .whereNotIn('id', animal_id)
-      .select(
-        'id',
-        'auth0_id as uploaderId',
-        'name',
-        'description',
-        'image_url as imageUrl'
-      )
-  })
+function getUnratedBadgers(auth0_id, db = connection) {
+  let reviewed = db('results').select('id').where('auth0_id', auth0_id)
+  return db('animals')
+    .whereNotIn('animals.id', reviewed)
+    .select(
+      'id',
+      'auth0_id as uploaderId',
+      'name',
+      'description',
+      'image_url as imageUrl'
+    )
 }

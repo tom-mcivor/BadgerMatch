@@ -2,7 +2,7 @@ const knex = require('knex')
 const testConfig = require('../knexfile').test
 const testDb = knex(testConfig)
 
-const { getRatedBadgers } = require('../play')
+const { getUnratedBadgers } = require('../play')
 
 beforeAll(() => {
   return testDb.migrate.latest()
@@ -30,7 +30,7 @@ describe('getUnRatedAnimals', () => {
           'https://www.top5.com/wp-content/uploads/2018/08/cute-baby-photos-fox-in-the-snow.png',
       },
     ]
-    return getRatedBadgers(auth0_id, testDb).then((animals) => {
+    return getUnratedBadgers(auth0_id, testDb).then((animals) => {
       expect(animals).toEqual(animalExpected)
       expect(animals[0].imageUrl).toBe(animalExpected[0].imageUrl)
       expect(animals[0].description).toBe(animalExpected[0].description)

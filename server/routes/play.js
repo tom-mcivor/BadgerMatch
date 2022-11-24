@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
   // No auth0 id hardcoded until it is setup
   // Will pass into route
   const auth0_id = 1
-  db.getRatedBadgers(auth0_id)
+  db.getUnratedBadgers(auth0_id)
     .then((products) => {
       res.json(products)
     })
