@@ -1,6 +1,7 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import Create from '../Create'
+import Dropzone from 'react-dropzone'
 
 jest.spyOn(console, 'log').mockImplementation(() => {})
 jest.spyOn(console, 'error').mockImplementation(() => {})
