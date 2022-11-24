@@ -13,7 +13,10 @@ export function setAnimal(animalData) {
 
 // simple action postResult
 export function submitResult(result) {
-  return dispatch
+  return {
+    type: ADD_RESULT,
+    payload: result,
+  }
 }
 
 // Thunk
@@ -31,3 +34,15 @@ export function fetchAnimal(id) {
 }
 
 // add result to the table/db
+// console.log(response.body.Search)
+export function addResult(result) {
+  return (dispatch) => {
+    return postResult(result)
+      .then((newId) => {
+        dispatch(submitResult({ ...result, id: newId }))
+      })
+      .catch((error) => {
+        console.error(error.message)
+      })
+  }
+}

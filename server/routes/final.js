@@ -17,11 +17,9 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   const newResult = req.body
-
   db.addResult(newResult)
-    .then(() => {
-      res.sendStatus(200)
-      return null
+    .then((ids) => {
+      res.json(ids[0])
     })
     .catch((err) => {
       console.error(err)

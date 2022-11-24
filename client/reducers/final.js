@@ -9,6 +9,10 @@ const final = (state = initialState, action) => {
     case SET_ANIMAL:
       return payload
 
+    case ADD_RESULT:
+      console.log(payload)
+      return payload
+
     default:
       return state
   }

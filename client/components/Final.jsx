@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import AnimalTile from './AnimalTile'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { fetchAnimal } from '../actions/final'
+import { fetchAnimal, addResult } from '../actions/final'
 
 export default function Final() {
   // take id from the route params
@@ -17,31 +17,26 @@ export default function Final() {
     auth0_id: 1,
     animal_id: id,
     created: new Date(Date.now()),
-    disposition: '',
   })
 
   //where we load the animal data by id
   useEffect(() => {
     dispatch(fetchAnimal(id))
   }, [])
-
   //handle on click function to send result of button click friend or foe to db
   function handleResult(event) {
     event.preventDefault()
-    setResult({
-      ...result,
-      [event.target.name]: event.target.value,
-    })
-    dispatch()
+    dispatch(addResult({ ...result, disposition: event.target.value }))
+    // navigate('/play/winner')
   }
 
   return (
     <>
       <form>
-        <button value='Friend' name='disposition' onClick={handleResult}>
+        <button value='friend' name='disposition' onClick={handleResult}>
           Friend
         </button>
-        <button value='Foe' name='disposition' onClick={handleResult}>
+        <button value='foe' name='disposition' onClick={handleResult}>
           Foe
         </button>
       </form>
