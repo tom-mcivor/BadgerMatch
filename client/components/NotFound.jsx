@@ -1,9 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { getNotFound } from '../apis/NotFound'
+import styles from './NotFound.module.scss'
 
 export default function NotFound() {
+  const [funImage, setFunImage] = useState(null)
+
+  useEffect(() => {
+    getNotFound()
+    .then((shibeImage) => {
+      console.log(shibeImage, 'shibeImage');
+      setFunImage(shibeImage[0])
+    })
+    .catch((e)=>{
+    console.error(e.message)
+    })
+  }, [])
+
   return (
     <>
-      <h1>404 NOT FOUND D:</h1>
+      <div className={styles.container}>
+      <h1 className={styles.heading} {...styles.text}>404 NOT FOUND D:</h1>
+      {funImage && <img className={styles.image} src={funImage} alt = "404image"/>}
+      </div>
     </>
   )
 }
+
+
