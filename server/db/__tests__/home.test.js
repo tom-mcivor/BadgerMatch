@@ -2,7 +2,8 @@ const knex = require('knex')
 const testConfig = require('../knexfile').test
 const testDb = knex(testConfig)
 
-const { getAnimals } = require('../home')
+const { getRandomAnimal } = require('../home')
+const { homeContentMockData } = require('../../../test/fake-data')
 
 beforeAll(() => {
   return testDb.migrate.latest()
@@ -16,13 +17,12 @@ afterAll(() => {
   return testDb.destroy()
 })
 
-describe('getAnimals', () => {
+describe('getRandomAnimal', () => {
   it('gets the animal from the animals table in the database.', () => {
-    expect.assertions(6)
-    return getAnimals(testDb).then((animals) => {
-      expect(animals[0].name).toBe('Bag Cat')
-      expect(animals[1].imageUrl).toBe('/images/mug-pup.jpg')
-      expect(animals).toHaveLength(4)
+    expect.assertions(2)
+    return getRandomAnimal(testDb).then((animal) => {
+      expect(homeContentMockData).toContainEqual(animal)
+      expect(Object.keys(animal)).toHaveLength(5)
     })
   })
 })

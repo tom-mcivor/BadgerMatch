@@ -27,18 +27,18 @@ describe('get /api/v1/play', () => {
         image_url: 'https://www.definitely-an-animal-but-human.jpeg',
       },
     ]
-    db.getRatedBadgers.mockReturnValue(Promise.resolve(fakeAnimalDisplay))
+    db.getUnratedBadgers.mockReturnValue(Promise.resolve(fakeAnimalDisplay))
     const auth0_id = 1 // Replace this when auth0 has been implemented.
     return request(server)
       .get('/api/v1/play')
       .then((res) => {
         expect(res.status).toBe(200)
         expect(res.body).toEqual(fakeAnimalDisplay)
-        expect(db.getRatedBadgers).toHaveBeenCalledWith(auth0_id)
+        expect(db.getUnratedBadgers).toHaveBeenCalledWith(auth0_id)
       })
   })
   test('returns 500 and logs error message when error', () => {
-    db.getRatedBadgers.mockImplementation(() =>
+    db.getUnratedBadgers.mockImplementation(() =>
       Promise.reject(new Error('shucks its broken'))
     )
     return request(server)

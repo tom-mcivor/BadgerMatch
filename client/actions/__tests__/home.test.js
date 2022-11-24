@@ -1,5 +1,8 @@
 import { fetchHomeContent, SET_HOME_CONTENT } from '../home'
 import { getHomeContent } from '../../apis/home'
+import { homeContentMockData } from '../../../test/fake-data'
+
+const [homeContentMockAnimal] = homeContentMockData
 
 jest.mock('../../apis/home')
 
@@ -9,20 +12,13 @@ beforeEach(() => {
   jest.clearAllMocks()
 })
 
-const homeContentMockData = {
-  captionId: 2,
-  captionText: 'mockCaptionText',
-  imageId: 2,
-  imageUrl: 'mockImageUrl',
-}
-
 describe('fetchHomeContent', () => {
   it('dispatches the SET_HOME_CONTENT action.', () => {
-    getHomeContent.mockReturnValue(Promise.resolve(homeContentMockData))
+    getHomeContent.mockReturnValue(Promise.resolve(homeContentMockAnimal))
     return fetchHomeContent()(fakeDispatch).then(() => {
       expect(fakeDispatch).toHaveBeenCalledWith({
         type: SET_HOME_CONTENT,
-        payload: homeContentMockData,
+        payload: homeContentMockAnimal,
       })
     })
   })
