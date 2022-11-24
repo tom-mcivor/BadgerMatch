@@ -1,17 +1,22 @@
 import request from 'superagent'
 
-const API_URL = 'http://localhost:3000'
-
-export const getS3Url = async () => {
-  const res = await request.get(`${API_URL}/api/v1/create/s3Url`)
-  return res.body
+export const getS3Url = async (token) => {
+  const response = await request
+    .get('/api/v1/create/s3Url')
+    .set('Authorization', `Bearer ${token}`)
+  return response.body
 }
 
-export const create = async (animal) => {
-  const res = await request.post(`${API_URL}/api/v1/create`).send(animal)
-  return res.body
+export const fetchUrl = async (url, file) => {
+  await request.put(url).send(file)
 }
 
-export const fetchUrl = async (uploadUrl, file) => {
-  await request.put(uploadUrl).send(file)
+export const create = async (animal, token) => {
+  console.log('token', token)
+  const response = await request
+    .post('/api/v1/create')
+    .set('Authorization', `Bearer ${token}`)
+    .send(animal)
+
+  return response.body
 }
