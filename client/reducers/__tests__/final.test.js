@@ -22,7 +22,7 @@ describe('final reducer', () => {
     expect.assertions(2)
     const action = { type: SET_ANIMAL, payload: animalByIdMockData }
 
-    const initialState = []
+    const initialState = {}
     const expectedState = animalByIdMockData
     const outputState = final(initialState, action)
 
@@ -35,7 +35,7 @@ describe('final reducer', () => {
       type: ADD_RESULT,
       payload: resultMockData,
     }
-    const initialState = []
+    const initialState = {}
     const expectedState = resultMockData
     const outputState = final(initialState, action)
 
@@ -45,7 +45,7 @@ describe('final reducer', () => {
 
   it('returns the default initial state for undefined state and no action type', () => {
     expect.assertions(1)
-    const expectedState = []
+    const expectedState = {}
     const outputState = final(undefined, {})
 
     expect(outputState).toEqual(expectedState)
