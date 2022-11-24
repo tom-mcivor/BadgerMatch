@@ -4,7 +4,6 @@ const router = express.Router()
 
 //GET /api/v1/uploads
 router.get('/', (req, res) => {
-  console.log('route hit')
   const auth0id = 1
   db.getUploads(auth0id)
     .then((uploads) => {
