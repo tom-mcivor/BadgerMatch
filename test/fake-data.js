@@ -1,33 +1,33 @@
 const homeContentMockData = [
   {
-    id: 1,
-    uploaderId: '1',
-    name: 'Bag Cat',
     description: 'Likes bags',
+    id: 1,
     imageUrl: '/images/bag-cat.jpg',
-  },
-  {
-    id: 2,
+    name: 'Bag Cat',
     uploaderId: '1',
-    name: 'Mug Pup',
-    description: 'Lives in mugs',
-    imageUrl: '/images/mug-pup.jpg',
   },
   {
-    id: 3,
-    uploaderId: '2',
-    name: 'Elephant',
+    description: 'Lives in mugs',
+    id: 2,
+    imageUrl: '/images/mug-pup.jpg',
+    name: 'Mug Pup',
+    uploaderId: '1',
+  },
+  {
     description: 'Just happy to exist',
+    id: 3,
     imageUrl:
       'https://www.top5.com/wp-content/uploads/2018/08/cute-baby-animals-baby-elements.jpeg',
+    name: 'Elephant',
+    uploaderId: '2',
   },
   {
-    id: 4,
-    uploaderId: '3',
-    name: 'Snow Fox',
     description: 'Wants a blanket',
+    id: 4,
     imageUrl:
       'https://www.top5.com/wp-content/uploads/2018/08/cute-baby-photos-fox-in-the-snow.png',
+    name: 'Snow Fox',
+    uploaderId: '3',
   },
 ]
 
