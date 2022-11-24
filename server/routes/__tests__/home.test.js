@@ -1,6 +1,6 @@
 const request = require('supertest')
 const server = require('../../server')
-const { getAnimals } = require('../../db/home')
+const { getRandomAnimal } = require('../../db/home')
 const { homeContentMockData } = require('../../../test/fake-data')
 
 const [homeContentMockAnimal] = homeContentMockData
@@ -12,7 +12,7 @@ jest.spyOn(console, 'error').mockImplementation(() => {})
 describe('GET /api/v1/home/', () => {
   it('should return status 200 and a animal when database is successful.', () => {
     expect.assertions(2)
-    getAnimals.mockReturnValue(Promise.resolve(homeContentMockAnimal))
+    getRandomAnimal.mockReturnValue(Promise.resolve(homeContentMockAnimal))
     return request(server)
       .get('/api/v1/home/')
       .then((res) => {
@@ -22,7 +22,7 @@ describe('GET /api/v1/home/', () => {
   })
   it('should return status 500 and an error message when database fails.', () => {
     expect.assertions(3)
-    getAnimals.mockImplementation(() =>
+    getRandomAnimal.mockImplementation(() =>
       Promise.reject(new Error('This no worky'))
     )
     return request(server)

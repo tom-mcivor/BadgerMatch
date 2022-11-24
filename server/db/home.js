@@ -1,6 +1,6 @@
 const connection = require('./connection')
 
-function getAnimals(db = connection) {
+function getRandomAnimal(db = connection) {
   return db('animals')
     .select(
       'id',
@@ -13,4 +13,4 @@ function getAnimals(db = connection) {
     .first()
 }
 
-module.exports = { getAnimals }
+module.exports = { getRandomAnimal }

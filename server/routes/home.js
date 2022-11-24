@@ -1,12 +1,12 @@
 const express = require('express')
 
-const { getAnimals } = require('../db/home')
+const { getRandomAnimal } = require('../db/home')
 
 const router = express.Router()
 
 // GET /api/v1/home/
 router.get('/', (req, res) => {
-  getAnimals()
+  getRandomAnimal()
     .then((animal) => {
       res.json(animal)
     })
