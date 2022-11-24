@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { create, getS3Url, fetchUrl } from '../apis/create'
 import styles from './Create.module.scss'
+import { useDropzone } from 'react-dropzone'
 
 const Create = () => {
   const [animal, setAnimal] = useState({
@@ -16,8 +17,8 @@ const Create = () => {
   const handleChange = (event) => {
     setAnimal({ ...animal, [event.target.name]: event.target.value })
   }
-  const handleFileChange = async (event) => {
-    setFile(event.target.files[0])
+  const handleFileChange = async (acceptedFiles) => {
+    setFile(acceptedFiles[0])
   }
 
   const handleSubmit = async (event) => {
@@ -35,6 +36,10 @@ const Create = () => {
     setLoading(false)
     setSuccess(true)
   }
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: handleFileChange,
+  })
 
   return (
     <div className={styles.container} data-testid='create-container'>
@@ -68,17 +73,14 @@ const Create = () => {
           aria-label='Description:'
           data-testid='description-input'
         />
-        <label htmlFor='imageUrl' className={styles.label}>
-          Pick Image:
-        </label>
-        <input
-          type='file'
-          name='imageUrl'
-          onChange={handleFileChange}
-          className={styles.input}
-          aria-label='Pick Image:'
-          data-testid='image-input'
-        />
+        <div {...getRootProps()}>
+          <input {...getInputProps()} data-testId='image-input' />
+          {file ? (
+            <p className={styles.dropZone}>{file.name}</p>
+          ) : (
+            <p className={styles.dropZone}>Drag, or click to select files</p>
+          )}
+        </div>
         <button
           type='submit'
           className={styles.button}
