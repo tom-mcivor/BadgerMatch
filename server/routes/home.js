@@ -7,9 +7,9 @@ const router = express.Router()
 // GET /api/v1/home/
 router.get('/', (req, res) => {
   getAnimals()
-    .then((animals) => {
-      res.json(animals[Math.floor(Math.random() * animals.length)])
-})
+    .then((animal) => {
+      res.json(animal)
+    })
 
     .catch((error) => {
       console.error(error.message)
