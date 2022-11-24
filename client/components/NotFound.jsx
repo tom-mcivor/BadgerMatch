@@ -8,7 +8,6 @@ export default function NotFound() {
   useEffect(() => {
     getNotFound()
     .then((shibeImage) => {
-      console.log(shibeImage, 'shibeImage');
       setFunImage(shibeImage[0])
     })
     .catch((e)=>{
