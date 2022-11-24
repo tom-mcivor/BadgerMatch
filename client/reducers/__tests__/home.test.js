@@ -1,21 +1,17 @@
 import { SET_HOME_CONTENT } from '../../actions/home'
 import home from '../home'
+import { homeContentMockData } from '../../../test/fake-data'
 
-const homeContentMockData = {
-  captionId: 2,
-  captionText: 'mockCaptionText',
-  imageId: 2,
-  imageUrl: 'mockImageUrl',
-}
+const [homeContentMockAnimal] = homeContentMockData
 
 describe('home reducer', () => {
   it('returns the action payload for type SET_HOME_CONTENT.', () => {
     const action = {
       type: SET_HOME_CONTENT,
-      payload: homeContentMockData,
+      payload: homeContentMockAnimal,
     }
     const initialState = {}
-    const expectedState = homeContentMockData
+    const expectedState = homeContentMockAnimal
     const outputState = home(initialState, action)
 
     expect(outputState).toEqual(expectedState)
