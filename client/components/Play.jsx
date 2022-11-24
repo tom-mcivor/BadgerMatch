@@ -53,7 +53,11 @@ export default function Play() {
       <div className='animalCards'>
         {animalsToRate.map((animal) => {
           return (
-            <div key={animal.id} className='animalTileWithButton'>
+            <div
+              key={animal.id}
+              className='animalTileWithButton'
+              data-testid='animalTile'
+            >
               <AnimalTile animal={animal} />
               <div className='pickButtonContainer'>
                 <button

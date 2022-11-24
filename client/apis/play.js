@@ -2,13 +2,12 @@ import request from 'superagent'
 
 export function getAnimals(auth0_id) {
   // No auth0 id passed yet. Will pass into route once auth0 is wired up.
-  console.log(auth0_id)
   return request
     .get(`/api/v1/play/`)
     .then((res) => {
       return res.body
     })
-    .catch(errorHandler('GET', '/api/v1/play/:auth0_id'))
+    .catch(errorHandler('GET', '/api/v1/play/'))
 }
 
 function errorHandler(method, route) {
