@@ -12,7 +12,6 @@ export const getS3Url = async (file, token) => {
 }
 
 export const create = async (animal, token) => {
-  console.log('token', token)
   const response = await request
     .post('/api/v1/create')
     .set('Authorization', `Bearer ${token}`)
