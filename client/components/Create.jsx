@@ -71,8 +71,11 @@ const Create = () => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleFileChange,
-    accept: 'image/*',
+    accept: {
+      'image/*': ['.jpg', '.jpeg', '.png', '.webp'],
+    },
     multiple: false,
+    role: 'input',
   })
 
   return (
@@ -108,11 +111,7 @@ const Create = () => {
           data-testid='description-input'
         />
         <div {...getRootProps()} data-testid='dropzone'>
-          <input
-            {...getInputProps()}
-            data-testid='image-input'
-            accept='image/*'
-          />
+          <input {...getInputProps()} data-testid='image-input' />
           {file ? (
             <p className={styles.dropZone} data-testid='file-present'>
               {file.name}
