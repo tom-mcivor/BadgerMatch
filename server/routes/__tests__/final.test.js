@@ -21,9 +21,7 @@ const getAnimalByIdData = {
 }
 
 const addNewResultData = {
-  auth0_id: 1,
   animal_id: 1,
-  created: new Date(Date.now()),
   disposition: 'friend',
 }
 
