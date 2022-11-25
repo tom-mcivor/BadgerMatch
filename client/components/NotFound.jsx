@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getNotFound } from '../apis/NotFound'
+import { getNotFound } from '../apis/notFound'
 import styles from './NotFound.module.scss'
 
 export default function NotFound() {
@@ -7,22 +7,24 @@ export default function NotFound() {
 
   useEffect(() => {
     getNotFound()
-    .then((shibeImage) => {
-      setFunImage(shibeImage[0])
-    })
-    .catch((e)=>{
-    console.error(e.message)
-    })
+      .then((shibeImage) => {
+        setFunImage(shibeImage[0])
+      })
+      .catch((e) => {
+        console.error(e.message)
+      })
   }, [])
 
   return (
     <>
       <div className={styles.container}>
-      <h1 className={styles.heading} {...styles.text}>404 NOT FOUND D:</h1>
-      {funImage && <img className={styles.image} src={funImage} alt = "404image"/>}
+        <h1 className={styles.heading} {...styles.text}>
+          404 NOT FOUND...HAVE A SHIBE
+        </h1>
+        {funImage && (
+          <img className={styles.image} src={funImage} alt='404image' />
+        )}
       </div>
     </>
   )
 }
-
-
