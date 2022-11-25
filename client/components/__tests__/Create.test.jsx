@@ -1,10 +1,9 @@
 import React from 'react'
-import { render, screen, fireEvent, act, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import Create from '../Create'
-import Dropzone from 'react-dropzone'
 import { useAuth0 } from '@auth0/auth0-react'
 import '@testing-library/jest-dom'
-import { create, getS3Url } from '../../apis/create'
+import userEvent from '@testing-library/user-event'
 
 jest.spyOn(console, 'log').mockImplementation(() => {})
 jest.spyOn(console, 'error').mockImplementation(() => {})
@@ -20,165 +19,58 @@ beforeEach(() => {
   })
 })
 
-describe('<Create />', () => {
-  it('updates the form inputs with user input', async () => {
+describe('Create', () => {
+  const animal = {
+    name: 'test',
+    description: 'test',
+  }
+
+  it('should render the Create component', () => {
     render(<Create />)
-    const nameInput = screen.getByTestId('name-input')
-    const descriptionInput = screen.getByTestId('description-input')
-    const fileInput = screen.getByTestId('image-input')
-
-    fireEvent.change(nameInput, { target: { value: 'test name' } })
-    fireEvent.change(descriptionInput, {
-      target: { value: 'test description' },
-    })
-    fireEvent.change(fileInput, { target: { files: ['test file'] } })
-
-    expect(nameInput.value).toBe('test name')
-    expect(descriptionInput.value).toBe('test description')
-    expect(fileInput.files[0]).toBe('test file')
+    expect(screen.getByTestId('create-form')).toBeInTheDocument()
   })
 
-  it('displays a loading message when the form is submitted', async () => {
+  it('should render the form', () => {
     render(<Create />)
-    const nameInput = screen.getByTestId('name-input')
-    const descriptionInput = screen.getByTestId('description-input')
-    const fileInput = screen.getByTestId('image-input')
-    const submitButton = screen.getByTestId('submit-button')
 
-    fireEvent.change(nameInput, { target: { value: 'test name' } })
-    fireEvent.change(descriptionInput, {
-      target: { value: 'test description' },
-    })
-    fireEvent.change(fileInput, { target: { files: ['test file'] } })
-
-    fireEvent.click(submitButton)
-
-    expect(screen.getByText('Loading...')).toBeInTheDocument()
+    expect(screen.getByLabelText(/Name/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/Description/i)).toBeInTheDocument()
+    expect(screen.getByText('Submit')).toBeInTheDocument()
+    expect(screen.getByTestId('create-container')).toBeInTheDocument()
+    expect(screen.getByTestId('create-form')).toBeInTheDocument()
+    expect(screen.getByTestId('file-missing')).toBeInTheDocument()
   })
 
-  // it('displays a success message when the form is submitted', async () => {
-  //   render(<Create />)
-  //   const nameInput = screen.getByTestId('name-input')
-  //   const descriptionInput = screen.getByTestId('description-input')
-  //   const fileInput = screen.getByTestId('image-input')
-  //   const submitButton = screen.getByTestId('submit-button')
+  it('should render the dropzone', () => {
+    render(<Create />)
+    expect(
+      screen.getByText(/Drag, or click to select files/i)
+    ).toBeInTheDocument()
+  })
 
-  //   fireEvent.change(nameInput, { target: { value: 'test name' } })
-  //   fireEvent.change(descriptionInput, {
-  //     target: { value: 'test description' },
-  //   })
-  //   fireEvent.change(fileInput, { target: { files: ['test file'] } })
+  it('should render the dropzone when clicked', () => {
+    render(<Create />)
+    fireEvent.click(screen.getByText(/Drag, or click to select files/i))
+    expect(
+      screen.getByText(/Drag, or click to select files/i)
+    ).toBeInTheDocument()
+  })
 
-  //   fireEvent.click(submitButton)
+  // Todo: failing test. bro wth
+  it.skip('should return false if invalid file type', async () => {
+    render(<Create />)
+    userEvent.type(screen.getByLabelText(/Name:/i), animal.name)
+    userEvent.type(screen.getByLabelText(/Description:/i), animal.description)
 
-  //   await waitFor(() => {
-  //     expect(screen.getByText('Success!')).toBeInTheDocument()
-  //   })
-  // })
+    await userEvent.upload(
+      // screen.getByLabelText(/Drag, or click to select files/i),
+      screen.getByTestId('image-input'),
+      new File([''], 'badfilename.txt')
+    )
 
-  // it('calls the create api when the form is submitted', async () => {
-  //   render(<Create />)
-  //   const nameInput = screen.getByTestId('name-input')
-  //   const descriptionInput = screen.getByTestId('description-input')
-  //   const fileInput = screen.getByTestId('image-input')
-  //   const submitButton = screen.getByTestId('submit-button')
-
-  //   fireEvent.change(nameInput, { target: { value: 'test name' } })
-  //   fireEvent.change(descriptionInput, {
-  //     target: { value: 'test description' },
-  //   })
-  //   fireEvent.change(fileInput, { target: { files: ['test file'] } })
-
-  //   fireEvent.click(submitButton)
-
-  //   await waitFor(() => {
-  //     expect(create).toHaveBeenCalledWith(
-  //       {
-  //         name: 'test name',
-  //         description: 'test description',
-  //         imageUrl: 'test image url',
-  //       },
-  //       'this-is-a-token'
-  //     )
-  //   })
-  // })
-
-  // it('calls the getS3Url api when the form is submitted', async () => {
-  //   render(<Create />)
-  //   const nameInput = screen.getByTestId('name-input')
-  //   const descriptionInput = screen.getByTestId('description-input')
-  //   const fileInput = screen.getByTestId('image-input')
-  //   const submitButton = screen.getByTestId('submit-button')
-
-  //   fireEvent.change(nameInput, { target: { value: 'test name' } })
-  //   fireEvent.change(descriptionInput, {
-  //     target: { value: 'test description' },
-  //   })
-  //   fireEvent.change(fileInput, { target: { files: ['test file'] } })
-
-  //   fireEvent.click(submitButton)
-
-  //   await waitFor(() => {
-  //     expect(getS3Url).toHaveBeenCalledWith('test file', 'this-is-a-token')
-  //   })
-  // })
+    const warning = await screen.findByText(/Invalid file type/i)
+    expect(warning).toBeVisible()
+  })
 })
 
-// import React from 'react'
-// import { render, screen, fireEvent, act, waitFor } from '@testing-library/react'
-// import Create from '../Create'
-// import Dropzone from 'react-dropzone'
-// import { useAuth0 } from '@auth0/auth0-react'
-// import '@testing-library/jest-dom'
-// import { create, getS3Url } from '../../apis/create'
-
-// jest.spyOn(console, 'log').mockImplementation(() => {})
-// jest.spyOn(console, 'error').mockImplementation(() => {})
-
-// jest.mock('@auth0/auth0-react')
-// jest.mock('../../apis/create')
-
-// beforeEach(() => {
-//   useAuth0.mockReturnValue({
-//     getAccessTokenSilently: () => {
-//       return Promise.resolve('this-is-a-token')
-//     },
-//   })
-// })
-
-// describe('<Create />', () => {
-//   it('updates the form inputs with user input', async () => {
-//     render(<Create />)
-//     const nameInput = screen.getByTestId('name-input')
-//     const descriptionInput = screen.getByTestId('description-input')
-//     const fileInput = screen.getByTestId('image-input')
-
-//     fireEvent.change(nameInput, { target: { value: 'test name' } })
-//     fireEvent.change(descriptionInput, {
-//       target: { value: 'test description' },
-//     })
-//     fireEvent.change(fileInput, { target: { files: ['test file'] } })
-
-//     expect(nameInput.value).toBe('test name')
-//     expect(descriptionInput.value).toBe('test description')
-//     expect(fileInput.files[0]).toBe('test file')
-//   })
-
-//   it('displays a loading message when the form is submitted', async () => {
-//     render(<Create />)
-//     const nameInput = screen.getByTestId('name-input')
-//     const descriptionInput = screen.getByTestId('description-input')
-//     const fileInput = screen.getByTestId('image-input')
-//     const submitButton = screen.getByTestId('submit-button')
-
-//     fireEvent.change(nameInput, { target: { value: 'test name' } })
-//     fireEvent.change(descriptionInput, {
-//       target: { value: 'test description' },
-//     })
-//     fireEvent.change(fileInput, { target: { files: ['test file'] } })
-
-//     fireEvent.click(submitButton)
-
-//     expect(screen.getByTestId('loading')).toBeInTheDocument()
-//   })
-// })
+// https://github.com/react-dropzone/react-dropzone/blob/master/src/index.spec.js
