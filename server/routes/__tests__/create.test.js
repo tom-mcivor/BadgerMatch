@@ -17,9 +17,6 @@ afterEach(() => {
   console.error.mockReset()
 })
 
-const fakestUser = { name: 'JV', email: 'JV@iscool.com' }
-const fakeUser = { ...fakestUser, auth0_id: '999' }
-
 describe('POST /api/v1/create', () => {
   it('should add a new animal to the database', async () => {
     expect.assertions(1)
