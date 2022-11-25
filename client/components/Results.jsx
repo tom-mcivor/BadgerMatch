@@ -8,7 +8,6 @@ export default function Results() {
   const results = useSelector((state) => state.results)
 
   useEffect(() => {
-    console.log('results')
     dispatch(fetchResults())
   }, [])
 

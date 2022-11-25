@@ -2,6 +2,7 @@ import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import Create from '../Create'
 import { useAuth0 } from '@auth0/auth0-react'
+import { BrowserRouter } from 'react-router-dom'
 import '@testing-library/jest-dom'
 import userEvent from '@testing-library/user-event'
 
@@ -26,12 +27,20 @@ describe('Create', () => {
   }
 
   it('should render the Create component', () => {
-    render(<Create />)
+    render(
+      <BrowserRouter>
+        <Create />
+      </BrowserRouter>
+    )
     expect(screen.getByTestId('create-form')).toBeInTheDocument()
   })
 
   it('should render the form', () => {
-    render(<Create />)
+    render(
+      <BrowserRouter>
+        <Create />
+      </BrowserRouter>
+    )
 
     expect(screen.getByLabelText(/Name/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/Description/i)).toBeInTheDocument()
@@ -42,14 +51,22 @@ describe('Create', () => {
   })
 
   it('should render the dropzone', () => {
-    render(<Create />)
+    render(
+      <BrowserRouter>
+        <Create />
+      </BrowserRouter>
+    )
     expect(
       screen.getByText(/Drag, or click to select files/i)
     ).toBeInTheDocument()
   })
 
   it('should render the dropzone when clicked', () => {
-    render(<Create />)
+    render(
+      <BrowserRouter>
+        <Create />
+      </BrowserRouter>
+    )
     fireEvent.click(screen.getByText(/Drag, or click to select files/i))
     expect(
       screen.getByText(/Drag, or click to select files/i)
@@ -58,7 +75,11 @@ describe('Create', () => {
 
   // Todo: failing test. bro wth
   it.skip('should return false if invalid file type', async () => {
-    render(<Create />)
+    render(
+      <BrowserRouter>
+        <Create />
+      </BrowserRouter>
+    )
     userEvent.type(screen.getByLabelText(/Name:/i), animal.name)
     userEvent.type(screen.getByLabelText(/Description:/i), animal.description)
 

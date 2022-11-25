@@ -10,11 +10,9 @@ export function showResult(user) {
 }
 
 export function fetchResults() {
-  console.log('dispatched')
   return (dispatch) => {
     return getResult()
       .then((result) => {
-        console.log('result action', result)
         dispatch(showResult(result))
         return null
       })

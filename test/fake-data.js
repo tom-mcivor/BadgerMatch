@@ -72,7 +72,7 @@ const mockHomelySeedData = [
   },
   {
     id: 6,
-    uploaderId: '3',
+    uploaderId: '1',
     name: 'wallace',
     description: 'I like cheese',
     imageUrl:
