@@ -6,11 +6,13 @@ import styles from './Winner.module.scss'
 
 export default function Winner() {
   const winningAnimal = useSelector((state) => state.final)
+  console.log(winningAnimal)
 
   return (
     <>
       <h2 className={styles.heading}>
-        You&apos;ve made a new {winningAnimal.disposition}!
+        You&apos;ve made a new{' '}
+        <span className={styles.disposition}>{winningAnimal.disposition}</span>!
       </h2>
       <div className={styles.container}>
         <AnimalTile animal={winningAnimal} />

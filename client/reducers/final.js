@@ -10,7 +10,7 @@ const final = (state = initialState, action) => {
       return payload
 
     case ADD_RESULT:
-      return payload
+      return { ...state, disposition: payload.disposition }
 
     default:
       return state
