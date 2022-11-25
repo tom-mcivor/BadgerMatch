@@ -10,10 +10,9 @@ const animalByIdMockData = {
 }
 
 const resultMockData = {
-  id: 1,
-  auth0_id: 1,
-  animal_id: 1,
-  created: new Date(Date.now()),
+  name: 'Mug Pup',
+  description: 'Lives in mugs',
+  imageUrl: '/images/mug-pup.jpg',
   disposition: 'friend',
 }
 
@@ -36,17 +35,16 @@ describe('final reducer', () => {
       payload: resultMockData,
     }
     const initialState = {}
-    const expectedState = resultMockData
+    const expectedState = {
+      disposition: resultMockData.disposition,
+    }
     const outputState = final(initialState, action)
-
     expect(outputState).toEqual(expectedState)
   })
-
   it('returns the default initial state for undefined state and no action type', () => {
     expect.assertions(1)
     const expectedState = {}
     const outputState = final(undefined, {})
-
     expect(outputState).toEqual(expectedState)
   })
 })
