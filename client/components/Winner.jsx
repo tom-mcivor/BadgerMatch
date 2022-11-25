@@ -6,7 +6,6 @@ import styles from './Winner.module.scss'
 
 export default function Winner() {
   const winningAnimal = useSelector((state) => state.final)
-  console.log(winningAnimal)
 
   return (
     <>

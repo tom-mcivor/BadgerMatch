@@ -41,12 +41,10 @@ describe('final reducer', () => {
     const outputState = final(initialState, action)
     expect(outputState).toEqual(expectedState)
   })
-
   it('returns the default initial state for undefined state and no action type', () => {
     expect.assertions(1)
     const expectedState = {}
     const outputState = final(undefined, {})
-
     expect(outputState).toEqual(expectedState)
   })
 })
