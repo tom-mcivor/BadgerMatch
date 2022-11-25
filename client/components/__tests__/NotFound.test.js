@@ -8,7 +8,6 @@ jest.mock('../../apis/notFound')
 
 const notFoundMockData = ['/images/bag-cat.jpg']
 
-jest.spyOn(console, 'log').mockImplementation(() => {})
 jest.spyOn(console, 'error').mockImplementation(() => {})
 
 beforeEach(() => {
