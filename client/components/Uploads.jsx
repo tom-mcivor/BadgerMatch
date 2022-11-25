@@ -15,9 +15,9 @@ export default function Uploads() {
   return (
     <>
       <h1 className={styles.heading}>Your Previous Uploads</h1>
-      {uploads.map((animal, i) => {
+      {uploads.map((animal) => {
         return (
-          <div key={i} className={styles.uploadsContainer}>
+          <div key={animal.id} className={styles.uploadsContainer}>
             <div className={styles.containerOne}>
               <img
                 className={styles.image}

@@ -21,13 +21,14 @@ describe('Uploads page', () => {
     })
   })
   it('should console.error() if api request fails.', () => {
-    expect.assertions(1)
+    expect.assertions(2)
     jest.spyOn(console, 'error')
     console.error.mockImplementation(() => {})
     getUploads.mockImplementation(() =>
       Promise.reject(new Error('Something went wrong'))
-    )
-    return fetchUploads()(fakeDispatch).then(() => {
+    ) 
+    return fetchUploads()(fakeDispatch).finally(() => {
+      expect(fakeDispatch).toHaveBeenCalledTimes(0)
       expect(console.error).toHaveBeenCalledWith('Something went wrong')
     })
   })
