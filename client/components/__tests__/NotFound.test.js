@@ -4,7 +4,7 @@ import { screen, render, waitFor } from '@testing-library/react'
 import NotFound from '../NotFound'
 import { getNotFound } from '../../apis/notFound'
 
-jest.mock('../../apis/NotFound')
+jest.mock('../../apis/notFound')
 
 const notFoundMockData = ['/images/bag-cat.jpg']
 
