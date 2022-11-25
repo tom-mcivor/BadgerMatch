@@ -41,7 +41,7 @@ jest.mock('../../apis/play')
 
 describe('<Play />', () => {
   it('displays two random animals images from api call', () => {
-    expect.assertions(1)
+    expect.assertions(2)
     getAnimals.mockReturnValue(Promise.resolve(playAnimalsMockData))
     render(
       <Provider store={store}>
@@ -51,10 +51,14 @@ describe('<Play />', () => {
     return waitFor(() => getAnimals.mock.calls.length > 0).then(() => {
       const animalName = screen.getAllByTestId('animalTile')
       expect(animalName).toHaveLength(2)
+      const buttons = screen.getAllByRole('button')
+      // Tiles count as buttons due to its component design
+      expect(buttons).toHaveLength(5)
     })
   })
-  it('executes save to Thunk on clickhandler, and navigates to final', async () => {
-    expect.assertions(2)
+  it('Navigates to Final page', async () => {
+    expect.assertions(1)
+    useNavigate.mockImplementation(() => {})
     getAnimals.mockReturnValue(Promise.resolve(playAnimalsMockData))
     render(
       <Provider store={store}>
@@ -63,11 +67,7 @@ describe('<Play />', () => {
     )
     return waitFor(() => getAnimals.mock.calls.length > 0).then(() => {
       userEvent.click(screen.getAllByRole('button')[0])
-      useNavigate.mockImplementation(() => {})
       expect(useNavigate).toHaveBeenCalled()
-      const buttons = screen.getAllByRole('button')
-      // Tiles count as buttons due to its component design
-      expect(buttons).toHaveLength(4)
     })
   })
 })

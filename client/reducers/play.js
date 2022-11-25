@@ -21,7 +21,7 @@ const play = (state = initialState, action) => {
 
   switch (type) {
     case 'REPLACE_ANIMALS':
-      return (state = payload)
+      return payload
     default:
       return state
   }

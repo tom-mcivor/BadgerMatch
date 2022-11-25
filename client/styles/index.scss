@@ -45,3 +45,18 @@ a { text-decoration: none; color: theme.$text-black; cursor: pointer; }
   align-items: center;
   flex-direction: column;
 }
+
+
+.refreshButton {
+  background-color:#FFD05A; 
+  border-radius:5px; 
+  border-color:#FFE298; 
+  padding:1em;
+  position: center;
+  margin: auto
+}
+
+.refreshButton:hover {
+  transform: translateY(-3px); transition-duration: 200ms;
+  box-shadow: theme.$shadow; opacity: 0.8;
+}

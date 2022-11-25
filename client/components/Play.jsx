@@ -11,24 +11,24 @@ export default function Play() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  // Remove above once authentication is setup.
-  useEffect(() => {
+  function refreshAnimals() {
     getAnimals()
       .then((animalsToRate) => {
         setAnimals(animalsToRate)
         if (animalsToRate.length < 2) {
-          // First need to clear the saved animals
           addAnimalToRedux(animalsToRate)
-          navigate('/final')
         }
         setAnimals(randomToRate(animalsToRate))
       })
       .catch((err) => {
         console.error(err.message)
       })
+  }
+
+  useEffect(() => {
+    refreshAnimals()
   }, [])
 
-  // Randomization function to choose which animals to display
   function randomToRate(animalsToRate) {
     let indexLength = animalsToRate.length
     let num1 = Math.floor(Math.random() * indexLength)
@@ -40,10 +40,9 @@ export default function Play() {
     return [animalsToRate[num1], animalsToRate[num2]]
   }
 
-  // Adds the chosen or left-over animal to redux for final to call
   function addAnimalToRedux(animal) {
     dispatch(updateAnimals(animal))
-    navigate('/final', animal)
+    navigate(`/final/${animal.id}`)
   }
 
   return (
@@ -69,6 +68,11 @@ export default function Play() {
             </div>
           )
         })}
+      </div>
+      <div className='animalCards'>
+        <button className='refreshButton' onClick={() => refreshAnimals()}>
+          Refresh Choices
+        </button>
       </div>
     </>
   )

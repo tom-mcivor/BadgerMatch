@@ -3,7 +3,7 @@ const testConfig = require('../knexfile').test
 const testDb = knex(testConfig)
 
 const { getRandomAnimal } = require('../home')
-const { homeContentMockData } = require('../../../test/fake-data')
+const { mockHomelySeedData } = require('../../../test/fake-data')
 
 beforeAll(() => {
   return testDb.migrate.latest()
@@ -21,7 +21,7 @@ describe('getRandomAnimal', () => {
   it('gets the animal from the animals table in the database.', () => {
     expect.assertions(2)
     return getRandomAnimal(testDb).then((animal) => {
-      expect(homeContentMockData).toContainEqual(animal)
+      expect(mockHomelySeedData).toContainEqual(animal)
       expect(Object.keys(animal)).toHaveLength(5)
     })
   })
