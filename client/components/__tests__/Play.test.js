@@ -6,7 +6,7 @@ import Play from '../Play'
 import { useNavigate } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from '../../store'
-import { getAnimals } from '../../apis/play'
+import { getUnRatedAnimals } from '../../apis/play'
 
 const playAnimalsMockData = [
   {
@@ -41,31 +41,33 @@ jest.mock('../../apis/play')
 
 describe('<Play />', () => {
   it('displays two random animals images from api call', () => {
-    expect.assertions(2)
-    getAnimals.mockReturnValue(Promise.resolve(playAnimalsMockData))
+    expect.assertions(3)
+    getUnRatedAnimals.mockReturnValue(Promise.resolve(playAnimalsMockData))
     render(
       <Provider store={store}>
         <Play />
       </Provider>
     )
-    return waitFor(() => getAnimals.mock.calls.length > 0).then(() => {
+    return waitFor(() => getUnRatedAnimals.mock.calls.length > 0).then(() => {
       const animalName = screen.getAllByTestId('animalTile')
       expect(animalName).toHaveLength(2)
       const buttons = screen.getAllByRole('button')
+      const pickButtons = screen.getAllByRole('button', { name: 'Pick Me' })
       // Tiles count as buttons due to its component design
+      expect(pickButtons).toHaveLength(2)
       expect(buttons).toHaveLength(5)
     })
   })
   it('Navigates to Final page', async () => {
     expect.assertions(1)
     useNavigate.mockImplementation(() => {})
-    getAnimals.mockReturnValue(Promise.resolve(playAnimalsMockData))
+    getUnRatedAnimals.mockReturnValue(Promise.resolve(playAnimalsMockData))
     render(
       <Provider store={store}>
         <Play />
       </Provider>
     )
-    return waitFor(() => getAnimals.mock.calls.length > 0).then(() => {
+    return waitFor(() => getUnRatedAnimals.mock.calls.length > 0).then(() => {
       userEvent.click(screen.getAllByRole('button')[0])
       expect(useNavigate).toHaveBeenCalled()
     })

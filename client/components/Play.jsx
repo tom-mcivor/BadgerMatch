@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getAnimals } from '../apis/play'
+import { getUnRatedAnimals } from '../apis/play'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import AnimalTile from './AnimalTile'
@@ -12,7 +12,7 @@ export default function Play() {
   const navigate = useNavigate()
 
   function refreshAnimals() {
-    getAnimals()
+    getUnRatedAnimals()
       .then((animalsToRate) => {
         setAnimals(animalsToRate)
         if (animalsToRate.length < 2) {

@@ -1,6 +1,6 @@
 import request from 'superagent'
 
-export function getAnimals() {
+export function getUnRatedAnimals() {
   return request
     .get(`/api/v1/play/`)
     .then((res) => {

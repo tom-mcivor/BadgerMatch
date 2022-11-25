@@ -1,5 +1,5 @@
 import nock from 'nock'
-import { getAnimals } from '../play'
+import { getUnRatedAnimals } from '../play'
 
 const playAnimalsMockData = [
   {
@@ -32,7 +32,7 @@ describe('GET /api/v1/play/', () => {
       .get('/api/v1/play/')
       .reply(200, playAnimalsMockData)
 
-    const animalsNotRated = await getAnimals(1)
+    const animalsNotRated = await getUnRatedAnimals(1)
     expect(animalsNotRated).toEqual(playAnimalsMockData)
     expect(animalsNotRated).toHaveLength(3)
     scope.done()
