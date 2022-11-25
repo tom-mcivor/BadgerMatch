@@ -16,12 +16,11 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const newResult = req.body
-
+  //TODO auth0_id is currently hardcoded for now
+  const newResult = { ...req.body, auth0_id: 1, created: new Date(Date.now()) }
   db.addResult(newResult)
-    .then(() => {
-      res.sendStatus(200)
-      return null
+    .then((ids) => {
+      res.json(ids[0])
     })
     .catch((err) => {
       console.error(err)
