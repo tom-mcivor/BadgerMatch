@@ -22,7 +22,7 @@ router.get('/s3Url', checkJwt, async (req, res) => {
     })
 
     // TODO: use crypto package to harden encoding.
-    const imageName = `${performance.now()}.jpeg` //changed from Date.
+    const imageName = `${performance.now()}.jpeg` //changed from Date. change to getRandomBytes
     const params = {
       Bucket: bucket,
       Key: imageName,
@@ -40,9 +40,9 @@ router.post('/', checkJwt, async (req, res) => {
   try {
     const auth0Id = req.auth?.sub
     const { name, description, imageUrl } = req.body
-    await create(auth0Id, name, description, imageUrl)
-    res.sendStatus(200)
-    // todo: send 200 with full json object  + id in it
+
+    const createdAnimal = await create(auth0Id, name, description, imageUrl)
+    res.status(200).json(createdAnimal)
   } catch (err) {
     res.status(500).send(err.message)
   }
