@@ -42,7 +42,7 @@ export default function Play() {
 
   function addAnimalToRedux(animal) {
     dispatch(updateAnimals(animal))
-    navigate(`/final/${animal.id}`)
+    navigate(`/play/final/${animal.id}`)
   }
 
   return (

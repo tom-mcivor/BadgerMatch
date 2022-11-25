@@ -3,9 +3,11 @@ import { create, getS3Url } from '../apis/create'
 import styles from './Create.module.scss'
 import { useDropzone } from 'react-dropzone'
 import { useAuth0 } from '@auth0/auth0-react'
+//import { useNavigate } from 'react-router-dom'
 
 const Create = () => {
   const { getAccessTokenSilently } = useAuth0()
+  //const navigate = useNavigate()
 
   const [animal, setAnimal] = useState({
     name: '',
@@ -66,6 +68,7 @@ const Create = () => {
     if (formIsValid) {
       setLoading(true)
       await handleApi()
+      //navigate('/uploads')
     }
   }
 

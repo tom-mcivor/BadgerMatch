@@ -38,7 +38,8 @@ router.get('/s3Url', checkJwt, async (req, res) => {
 
 router.post('/', checkJwt, async (req, res) => {
   try {
-    const auth0Id = req.auth?.sub
+    // const auth0Id = req.auth?.sub
+    const auth0Id = 1
     const { name, description, imageUrl } = req.body
 
     const createdAnimal = await create(auth0Id, name, description, imageUrl)

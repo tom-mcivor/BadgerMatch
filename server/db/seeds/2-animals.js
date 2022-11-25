@@ -40,7 +40,7 @@ exports.seed = async (knex) => {
     },
     {
       id: 6,
-      auth0_id: '3',
+      auth0_id: '1',
       name: 'wallace',
       description: 'I like cheese',
       image_url:

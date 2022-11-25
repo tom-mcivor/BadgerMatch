@@ -1,9 +1,6 @@
-import {
-  getResult,
-} from '../apis/results'
+import { getResult } from '../apis/results'
 
 export const SHOW_RESULTS = 'SHOW_RESULTS'
-
 
 export function showResult(user) {
   return {
@@ -12,11 +9,12 @@ export function showResult(user) {
   }
 }
 
-
 export function fetchResults() {
+  console.log('dispatched')
   return (dispatch) => {
     return getResult()
       .then((result) => {
+        console.log('result action', result)
         dispatch(showResult(result))
         return null
       })
