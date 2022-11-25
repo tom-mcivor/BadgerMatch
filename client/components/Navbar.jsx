@@ -27,6 +27,7 @@ export default function Navbar() {
         <Link to='/play'>Play</Link>
         <Link to='/create'>Create</Link>
         <Link to='/results'>Results</Link>
+        <Link to='/uploads'>Uploads</Link>
 
         <IfAuthenticated>
           <div className={styles.auth}>
