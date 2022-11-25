@@ -8,18 +8,21 @@ import { fetchResults } from '../../actions/results'
 
 const resultContentMockData = [
   {
+    id: 1,
     name: 'Penguin',
     imageUrl: '/penguin.png',
     description: `I'm a lovely penguin`,
     disposition: 'friend',
   },
   {
+    id: 2,
     name: 'Puppy',
     imageUrl: '/puppy.png',
     description: `I'm a naughty puppy`,
     disposition: 'foe',
   },
   {
+    id: 3,
     name: 'Potato',
     imageUrl: '/potato.png',
     description: `I'm a stud I mean spud`,
@@ -32,6 +35,8 @@ jest.mock('../../actions/results')
 beforeEach(() => {
   jest.clearAllMocks()
 })
+
+
 
 const fakeStore = {
   subscribe: jest.fn(),

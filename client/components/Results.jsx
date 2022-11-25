@@ -10,28 +10,32 @@ export default function Results() {
   useEffect(() => {
     dispatch(fetchResults())
   }, [])
+  
 
   return (
     <>
       <h1 className={styles.resultsheading} >Your Previous Results</h1>
-      {results.map((result, key) => {
-        const date = new Date(`${result?.created}` * 1).toLocaleString()
+      {results.map((result) => {
+        const { id, created, disposition, name, description, imageUrl } = result
 
-        const friendOrFoeColour = (`${result?.disposition}` == 'friend' ? 'green' : 'red')
+        const date = new Date(`${created}` * 1).toLocaleString()
+
+        const friendOrFoeColour = (`${disposition}` == 'friend' ? 'green' : 'red')
         const textColour = {
           color: `${friendOrFoeColour}`,
         }
 
+        if (!result) return <></>
         return (
-          <div className={styles.resultscontainer} key={key}>
+          <div className={styles.resultscontainer} key={id}>
             <div className={styles.item1}>
-              <img className={styles.image} src={result?.imageUrl} width={400} alt={result?.name} />
+              <img className={styles.image} src={imageUrl} width={400} alt={name} />
             </div>
             <div className={styles.item2}>
-              <h2 className={styles.friendorfoe} > Friend or Foe? <p style={textColour}>{result?.disposition.toUpperCase()}</p></h2>
-              <p className={styles.name} >My name is {result?.name}</p>
+              <h2 className={styles.friendorfoe} > Friend or Foe? <p style={textColour}>{disposition.toUpperCase()}</p></h2>
+              <p className={styles.name} >My name is {name}</p>
               <p>We met on: {date}</p>
-              <p>About me: {result?.description}</p>
+              <p>About me: {description}</p>
             </div>
           </div>
         )
