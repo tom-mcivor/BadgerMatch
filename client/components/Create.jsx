@@ -25,7 +25,7 @@ const Create = () => {
     }
 
     const validExtensions = ['jpg', 'jpeg', 'png', 'webp']
-    const fileExtension = file.name.split('.')[1]
+    const fileExtension = file.name.split('.').at(-1) // test
 
     if (!validExtensions.includes(fileExtension)) {
       setError('Invalid file type, please upload a jpg, jpeg, png or webp file')
@@ -46,7 +46,7 @@ const Create = () => {
 
     setLoading(false)
     setSuccess(true)
-    setAnimal({ name: '', description: '', imageUrl: '' })
+    setAnimal({ name: '', description: '' })
     setFile(null)
   }
 
