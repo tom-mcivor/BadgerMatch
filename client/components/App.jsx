@@ -9,6 +9,7 @@ import Winner from './Winner'
 import Results from './Results'
 import Create from './Create'
 import NotFound from './NotFound'
+import Uploads from './Uploads'
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path='/play/final/:id' element={<Final />} />
         <Route path='/play/winner' element={<Winner />} />
         <Route path='/results' element={<Results />} />
+        <Route path='/uploads' element={<Uploads />} />
         <Route path='/create' element={<Create />} />
         <Route path='/*' element={<NotFound />} />
       </Routes>
