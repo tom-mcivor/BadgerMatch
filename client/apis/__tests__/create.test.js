@@ -15,10 +15,6 @@ const fetchUrlMockData = {
   imageName: '/images/boris.jpg',
 }
 
-test('1=1', () => {
-  expect(1).toBe(1)
-})
-
 describe('create', () => {
   it('should add a new animal to the database', async () => {
     expect.assertions(2)
