@@ -1,6 +1,5 @@
 import { fetchAnimal, addResult, SET_ANIMAL, ADD_RESULT } from '../final'
 import { getAnimalById, postResult } from '../../apis/final'
-import { post } from 'superagent'
 
 jest.mock('../../apis/final')
 
